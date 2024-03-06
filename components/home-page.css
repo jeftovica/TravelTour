@@ -1,0 +1,19 @@
+body {
+    background-color: white;
+}
+nav{
+    background-color: #84b870;
+}
+.carousel{
+    height: 600px;
+}
+.card-img-top{
+    height: 160px;
+    object-fit: cover;
+}
+.carousel-item img{
+    background: rgba(255, 0, 0, 0.5);
+    overflow: hidden;
+    height: 100%;
+    z-index: 2;
+}
