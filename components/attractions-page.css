@@ -19,3 +19,7 @@ nav{
 .search-attraction-button{
     border-color: #84b870;
 }
+.btn-close-attraction-modal:hover{
+    background-color: #84b870; 
+    border-color: #84b870;
+}

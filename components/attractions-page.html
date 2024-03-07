@@ -51,7 +51,37 @@
           </form>
       </div>
       <div class="col d-flex justify-content-end">
-            <button class="btn" href="#" style="background-color: #84b870; color: white;">Add New Attraction</a>
+        <button type="button" class="btn btn-primary" style="background-color: #84b870; border-color: #84b870;"
+          data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Add New Attraction </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="w-100 align-items-center">
+                
+                  <div class="form-group my-3 justify-content-center" style="width: 75%;">
+                    <input type="text" class="form-control w-100" id="name" placeholder="Attraction Name">
+                  </div>
+                  <div class="mb-3" style="width: 75%;">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Attraction Description"></textarea>
+                  </div>
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-close-attraction-modal"
+                  data-bs-dismiss="modal">Discard</button>
+                <button type="button" class="btn btn-primary"
+                  style="background-color: #84b870; border-color: #84b870;">Create</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
