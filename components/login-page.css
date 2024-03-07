@@ -2,13 +2,13 @@ body{
     background-color: #84b870;
 }
 .login-box{
-    margin-top: 300px;
+    margin-top: 230px;
     
     
 }
 .login-form{
-    width: 20%;
-    min-width: 400;
+    width: 25%;
+    min-width: 500px;
     background-color: white;
     border-radius: 12px;
 }

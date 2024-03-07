@@ -12,8 +12,6 @@ nav{
     object-fit: cover;
 }
 .carousel-item img{
-    background: rgba(255, 0, 0, 0.5);
-    overflow: hidden;
-    height: 100%;
-    z-index: 2;
+    height: 600px;
+    object-fit: cover;
 }
