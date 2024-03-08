@@ -23,3 +23,11 @@ nav{
     background-color: #84b870; 
     border-color: #84b870;
 }
+.trash-btn{
+    border: none;
+    color: #84b870;
+}
+.edit-btn{
+    border: none;
+    color: #84b870;
+}
