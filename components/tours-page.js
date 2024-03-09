@@ -1,7 +1,8 @@
-var datepickerWithFilter = document.querySelector('.datepicker-with-filter');
+$(document).ready(function () {
 
-function filterFunction(date) {
-var isSaturday = date.getDay() === 6;
-var isSunday = date.getDay() === 0;
-var isBeforeToday = date &lt; new Date(); return isSaturday || isSunday || isBeforeToday; } new
-  mdb.Datepicker(datepickerWithFilter, { filter: filterFunction });
+  var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+    removeItemButton: true
+  });
+
+
+});

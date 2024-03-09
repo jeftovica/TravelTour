@@ -31,3 +31,7 @@ nav{
     border: none;
     color: #84b870;
 }
+.choices__inner .choices__list .choices__item{
+    background-color: #84b870;
+    border-color: #84b870;
+}
