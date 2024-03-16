@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Attractions Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="attractions-page.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg ">
+    <div class="container">
+      <a class="navbar-brand" href="#" style="color: white;">Travel&Tour</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#" style="color: white;">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" style="color: white;">Tours</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#" style="color: white;">Attractions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" style="color: white;">My Tours</a>
+          </li>
+        </ul>
+        <div class="d-flex flex-row align-items-center">
+          <p class="mb-0 me-3" style="color: white;">Andjela Jeftovic</p>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <h1 class="form-group my-5 text-center" style="color: #84b870;">Available Attractions</h1>
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+      </div>
+      <div class="col">
+        <form class="d-flex w-25 search-attractions-form " role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success search-attraction-button" type="submit">Search</button>
+        </form>
+      </div>
+      <div class="col d-flex justify-content-end">
+        <button type="button" class="btn btn-primary" style="background-color: #84b870; border-color: #84b870;"
+          data-bs-toggle="modal" data-bs-target="#attractionModal">
+          Add New Attraction </button>
+
+        <div class="modal fade" id="attractionModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalLabel">Attraction Creation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="w-100 d-flex flex-column align-items-center justify-content-center">
+                <div class="form-group my-3 justify-content-center" style="width: 75%;">
+                  <input type="text" class="form-control w-100" id="name" placeholder="Attraction Name">
+                </div>
+                <div class="mb-3" style="width: 75%;">
+                  <textarea class="form-control" rows="3" placeholder="Attraction Description"></textarea>
+                </div>
+                <div class="mb-3 w-75">
+                  <input class="form-control" type="file" id="formFile">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-close-attraction-modal"
+                  data-bs-dismiss="modal">Discard</button>
+                <button type="button" class="btn btn-primary"
+                  style="background-color: #84b870; border-color: #84b870;">Create</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="attractionModalDelete" tabindex="-1" aria-labelledby="modalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalLabel">Delete Attraction</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="w-100 d-flex flex-column align-items-center justify-content-center my-5 mb-4">
+                <p style="font-size: 18px;">Are you sure that you want to delete this Attraction?</p>
+                <div class="d-flex justify-content-center mt-4">
+                  <button type="button" class="btn btn-outline-success btn-close-attraction-modal mx-2"
+                    data-bs-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-primary mx-2"
+                    style="background-color: #84b870; border-color: #84b870;">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container my-5">
+    <div class="row justify-content-between">
+      <div class="card px-0" style="width: 18rem;">
+        <img class="card-img-top" src="../assets/1a.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Attraction Name</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+            card's content.</p>
+          <div class="container w-100">
+            <div class="row d-flex flex-row justify-content-between">
+              <div class="col d-flex justify-content-start px-0 ">
+                <button href="#" class="btn" style="background-color: #84b870; color: white;">View more</button>
+              </div>
+              <div class="col d-flex justify-content-end px-0">
+                <button class="btn trash-btn" data-bs-toggle="modal" data-bs-target="#attractionModalDelete"><i
+                    class="fa fa-trash"></i></button>
+                <button class="btn edit-btn" data-bs-toggle="modal" data-bs-target="#attractionModal"><i
+                    class="fa fa-edit"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card px-0" style="width: 18rem;">
+        <img class="card-img-top" src="../assets/2a.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Attraction Name</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+            card's content.</p>
+          <div class="container w-100">
+            <div class="row d-flex flex-row justify-content-between">
+              <div class="col d-flex justify-content-start px-0 ">
+                <button href="#" class="btn" style="background-color: #84b870; color: white;">View more</button>
+              </div>
+              <div class="col d-flex justify-content-end px-0">
+                <button class="btn trash-btn" data-bs-toggle="modal" data-bs-target="#attractionModalDelete"><i
+                    class="fa fa-trash"></i></button>
+                <button class="btn edit-btn" data-bs-toggle="modal" data-bs-target="#attractionModal"><i
+                    class="fa fa-edit"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card px-0" style="width: 18rem;">
+        <img class="card-img-top" src="../assets/3a.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Attraction Name</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+            card's content.</p>
+          <div class="container w-100">
+            <div class="row d-flex flex-row justify-content-between">
+              <div class="col d-flex justify-content-start px-0 ">
+                <button href="#" class="btn" style="background-color: #84b870; color: white;">View more</button>
+              </div>
+              <div class="col d-flex justify-content-end px-0">
+                <button class="btn trash-btn" data-bs-toggle="modal" data-bs-target="#attractionModalDelete"><i
+                    class="fa fa-trash"></i></button>
+                <button class="btn edit-btn" data-bs-toggle="modal" data-bs-target="#attractionModal"><i
+                    class="fa fa-edit"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card px-0" style="width: 18rem;">
+        <img class="card-img-top" src="../assets/4a.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Attraction Name</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+            card's content.</p>
+          <div class="container w-100">
+            <div class="row d-flex flex-row justify-content-between">
+              <div class="col d-flex justify-content-start px-0 ">
+                <button href="#" class="btn" style="background-color: #84b870; color: white;">View more</button>
+              </div>
+              <div class="col d-flex justify-content-end px-0">
+                <button class="btn trash-btn" data-bs-toggle="modal" data-bs-target="#attractionModalDelete"><i
+                    class="fa fa-trash"></i></button>
+                <button class="btn edit-btn" data-bs-toggle="modal" data-bs-target="#attractionModal"><i
+                    class="fa fa-edit"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-between my-4">
+      <div class="card px-0" style="width: 18rem;">
+        <img class="card-img-top" src="../assets/5a.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Attraction Name</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+            card's content.</p>
+
+          <div class="container w-100">
+            <div class="row d-flex flex-row justify-content-between">
+              <div class="col d-flex justify-content-start px-0 ">
+                <button href="#" class="btn" style="background-color: #84b870; color: white;">View more</button>
+              </div>
+              <div class="col d-flex justify-content-end px-0">
+                <button class="btn trash-btn" data-bs-toggle="modal" data-bs-target="#attractionModalDelete"><i
+                    class="fa fa-trash"></i></button>
+                <button class="btn edit-btn" data-bs-toggle="modal" data-bs-target="#attractionModal"><i
+                    class="fa fa-edit"></i></button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="card px-0" style="width: 18rem;">
+        <img class="card-img-top" src="../assets/6a.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Attraction Name</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+            card's content.</p>
+          <div class="container w-100">
+            <div class="row d-flex flex-row justify-content-between">
+              <div class="col d-flex justify-content-start px-0 ">
+                <button href="#" class="btn" style="background-color: #84b870; color: white;">View more</button>
+              </div>
+              <div class="col d-flex justify-content-end px-0">
+                <button class="btn trash-btn" data-bs-toggle="modal" data-bs-target="#attractionModalDelete"><i
+                    class="fa fa-trash"></i></button>
+                <button class="btn edit-btn" data-bs-toggle="modal" data-bs-target="#attractionModal"><i
+                    class="fa fa-edit"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card px-0" style="width: 18rem;">
+        <img class="card-img-top" src="../assets/7a.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Attraction Name</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+            card's content.</p>
+          <div class="container w-100">
+            <div class="row d-flex flex-row justify-content-between">
+              <div class="col d-flex justify-content-start px-0 ">
+                <button href="#" class="btn" style="background-color: #84b870; color: white;">View more</button>
+              </div>
+              <div class="col d-flex justify-content-end px-0">
+                <button class="btn trash-btn" data-bs-toggle="modal" data-bs-target="#attractionModalDelete"><i
+                    class="fa fa-trash"></i></button>
+                <button class="btn edit-btn" data-bs-toggle="modal" data-bs-target="#attractionModal"><i
+                    class="fa fa-edit"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card px-0" style="width: 18rem;">
+        <img class="card-img-top" src="../assets/8a.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Attraction Name</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+            card's content.</p>
+          <div class="container w-100">
+            <div class="row d-flex flex-row justify-content-between">
+              <div class="col d-flex justify-content-start px-0 ">
+                <button href="#" class="btn" style="background-color: #84b870; color: white;">View more</button>
+              </div>
+              <div class="col d-flex justify-content-end px-0">
+                <button class="btn trash-btn" data-bs-toggle="modal" data-bs-target="#attractionModalDelete"><i
+                    class="fa fa-trash"></i></button>
+                <button class="btn edit-btn" data-bs-toggle="modal" data-bs-target="#attractionModal"><i
+                    class="fa fa-edit"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center text-lg-start text-dark mt-5 pt-3" style="background-color: #ECEFF1">
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <div class="row mt-3">
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <h6 class="text-uppercase fw-bold">Travel&Tour</h6>
+            <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #84b870; height: 2px" />
+            <p>
+              Here you can use rows and columns to organize your footer
+              content. Lorem ipsum dolor sit amet, consectetur adipisicing
+              elit.
+            </p>
+          </div>
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <h6 class="text-uppercase fw-bold">Useful links</h6>
+            <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #84b870; height: 2px" />
+            <p>
+              <a href="#!" class="text-dark">Home</a>
+            </p>
+            <p>
+              <a href="#!" class="text-dark">Tours</a>
+            </p>
+            <p>
+              <a href="#!" class="text-dark">Attractions</a>
+            </p>
+          </div>
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <h6 class="text-uppercase fw-bold">Contact</h6>
+            <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #84b870; height: 2px" />
+            <p> Sarajevo, Francuske Revolucije BB, Ilidza 71210, BiH</p>
+            <p> info@example.com</p>
+            <p> + 01 234 567 88</p>
+            <p> + 01 234 567 89</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+      © 2024 Copyright:
+      <a class="text-dark">Andjela Jeftovic</a>
+    </div>
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script src="home-page.js"></script>
+</body>
+
+</html>
