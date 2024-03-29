@@ -1,0 +1,47 @@
+{
+    "id": 1,
+    "name": "Tour Name 1",
+    "date": "12/04/2024 - 14/04/2024",
+    "price": 65,
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "image": "./assets/8.jpg",
+    "reservations": [
+        {
+            "name": "Mark",
+            "surname": "Otto",
+            "number": "+ 01 234 567 89"
+        },
+        {
+            "name": "Jakob",
+            "surname": "Tronton",
+            "number": "+ 01 234 567 89"
+        },
+        {
+            "name": "Anna",
+            "surname": "Stone",
+            "number": "+ 01 234 567 89"
+        }
+    ],
+    "attractions": [
+        {
+            "id":1,
+            "name":"Attraction Name 1",
+            "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+            "image":"./assets/1a.jpg"
+        },
+        
+        {
+            "id":2,
+            "name":"Attraction Name 2",
+            "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+            "image":"./assets/2a.jpg"
+        },
+        
+        {
+            "id":3,
+            "name":"Attraction Name 3",
+            "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+            "image":"./assets/3a.jpg"
+        }
+    ]
+}

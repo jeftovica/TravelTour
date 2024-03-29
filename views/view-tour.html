@@ -1,0 +1,116 @@
+<img class="tour-img" src="../assets/8.jpg">
+
+    <div class="container d-flex flex-column justify-content-center align-items-center w-100">
+
+        <div class=" d-flex justify-content-center w-100 align-items-center">
+            <h1 class="form-group mt-5 text-center" style="color: #84b870;" id="tour-title"></h1>
+        </div>
+
+        <div class="row d-flex justify-content-center w-100 my-3 align-items-center">
+            <button class="btn justify-content-center mx-2" href="#"
+                style="background-color: #84b870; color: white; width: 100px;" data-bs-toggle="modal"
+                data-bs-target="#bookTourModal">Book Tour</button>
+                <button class="btn justify-content-center mx-2" href="#"
+                style="background-color: #84b870; color: white; width: 150px;" data-bs-toggle="modal"
+                data-bs-target="#bookListModal">Reservation List</button>
+        </div>
+        <div class="modal fade" id="bookTourModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalLabel">Book Tour</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="w-100 d-flex flex-column align-items-center justify-content-center my-5 mb-4">
+                        <p style="font-size: 18px;">Are you sure you want to book this Tour?</p>
+                        <div class="d-flex justify-content-center mt-4">
+                            <button type="button" class="btn btn-outline-success btn-close-attraction-modal mx-2"
+                                data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary mx-2"
+                                style="background-color: #84b870; border-color: #84b870;">Book</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="bookListModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalLabel">Reservation List</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="w-100 d-flex flex-column align-items-center justify-content-center my-5 mb-4 px-4">
+                        <table class="table" id="reservation-table">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Phone Number</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>+ 01 234 567 89</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        <div class="d-flex justify-content-center mt-4">
+                            <button type="button" class="btn btn-outline-success btn-close-attraction-modal mx-2"
+                                data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary mx-2"
+                                style="background-color: #84b870; border-color: #84b870;">Book</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center mt-3 mb-3">
+            <h4  id="tour-date"></h4>
+            <h4 style="color: #84b870;" id="tour-price"></h4>
+        </div>
+        
+        <div class="row d-flex justify-content-center w-100 align-items-center">
+            <h4 class="w-75" style="text-align: justify; min-width: 300px;" id="tour-description"></h4>
+        </div>
+    </div>
+
+    <div id="carouselExampleCaptions" class="carousel slide my-5 mx-auto">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class="container w-100 justify-content-center align-items-center">
+        <h2 class="form-group my-5 text-center" style="color: #84b870;">Which attractions this tour includes?</h2>
+    </div>
+
+    <div class="container">
+        <div class="responsive-grid-layout" id="tours-attractions">
+           
+        </div>
+    </div>
+
+    <script src="./views/view-tour.js"></script>

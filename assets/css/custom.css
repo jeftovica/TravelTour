@@ -1,0 +1,131 @@
+body {
+  background-color: white;
+}
+nav{
+  background-color: #84b870;
+}
+.trash-btn{
+  border: none;
+  color: #84b870;
+}
+.edit-btn{
+  border: none;
+  color: #84b870;
+}
+.card-img-top{
+  height: 160px;
+  object-fit: cover;
+}
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus, textarea:focus {
+  border-color: #84b870 !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(132, 184, 112, 0.6) !important;
+}
+
+.responsive-grid-layout{
+  display:grid;
+  margin: 0 auto;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  justify-items: center;
+}
+
+/* Home Page */
+
+section#home-page .carousel{
+  height: 600px;
+}
+section#home-page .carousel-item img{
+  height: 600px;
+  object-fit: cover;
+}
+
+/* Attractions Page & My Tours & Tours*/
+
+.search-attractions-form, .search-tours-form{
+  min-width: 400px;
+}
+.search-attraction-button:hover, .search-tour-button:hover{
+  background-color: #84b870; 
+  border-color: #84b870;
+}
+.search-attraction-button, .search-tour-button{
+  border-color: #84b870;
+}
+section#attractions-page .btn-close-attraction-modal:hover, .btn-close-modal:hover{
+  background-color: #84b870; 
+  border-color: #84b870;
+}
+.cancel-btn{
+  border: none;
+  color: #84b870;
+}
+.choices__inner .choices__list .choices__item{
+  background-color: #84b870;
+  border-color: #84b870;
+}
+
+.choices__inner input:focus{
+  box-shadow: none!important;
+}
+
+/* View Attraction*/
+
+.attraction-img, .tour-img{
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  
+}
+
+/*View Tour*/
+
+section#view-tour .carousel{
+  width: 60%;
+  height: 400px;
+}
+section#view-tour .carousel-item img{
+  height: 400px;
+  object-fit: cover;
+}
+
+
+/* Login Page */
+
+section#login-page .login-box{
+  margin-top: 230px;
+  
+  
+}
+section#login-page .login-form{
+  width: 25%;
+  min-width: 500px;
+  background-color: white;
+  border-radius: 12px;
+}
+
+/* Register page */
+
+section#register-page .register-box{
+  margin-top: 150px;
+}
+section#register-page .register-form{
+  width: 25%;
+  min-width: 500px;
+  background-color: white;
+  border-radius: 12px;
+}
