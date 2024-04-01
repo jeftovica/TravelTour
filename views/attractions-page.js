@@ -1,9 +1,17 @@
 $(document).ready(function(){
     getAttractions();
+    handleVisibilityRole();
+    $("#add-attraction-form").get(0).reset();
 });
 getAttractions=()=>{
     $.get("./data/attractions.json",(response)=>{
-        console.log(response.data)
+      let searchText=document.querySelector('#search-attraction').value;
+      if(searchText!=""){
+        response.data = response.data.filter(function(attraction) {
+          return attraction.name.toLowerCase().includes(searchText.toLowerCase());
+      });
+      }
+
         let attractionsHtml='';
         response.data.map(attraction=>{
             attractionsHtml+=`<div class="card px-0" style="width: 18rem;">
@@ -17,9 +25,9 @@ getAttractions=()=>{
                     <a href="?id=${attraction.id}#view-attraction" class="btn" style="background-color: #84b870; color: white;">View more</a>
                   </div>
                   <div class="col d-flex justify-content-end px-0">
-                    <button class="btn trash-btn" data-bs-toggle="modal" data-bs-target="#attractionModalDelete"><i
+                    <button class="btn trash-btn admin-only" data-bs-toggle="modal" data-bs-target="#attractionModalDelete"><i
                         class="fa fa-trash"></i></button>
-                    <button class="btn edit-btn" data-bs-toggle="modal" data-bs-target="#attractionModal"><i
+                    <button class="btn edit-btn admin-only" data-bs-toggle="modal" data-bs-target="#attractionModal"><i
                         class="fa fa-edit"></i></button>
                   </div>
                 </div>
@@ -28,5 +36,16 @@ getAttractions=()=>{
           </div>`;
         });
         $("#attractions-container").html(attractionsHtml);
+        handleVisibilityRole();
     });
 };
+
+addAttraction=()=>{
+  let name = document.querySelector("#name").value;
+  let description= document.querySelector('#description').value;
+  let image= document.querySelector("#formFile").value;
+  let newAttraction={"name": name,"description":description,"image":image}
+    console.log(newAttraction);
+    $("#add-attraction-form").get(0).reset();
+    alert("Adding successful!");
+}

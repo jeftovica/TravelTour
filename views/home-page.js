@@ -2,10 +2,10 @@ $('.carousel').carousel();
 
 $(document).ready(function(){
     getTours();
+    handleVisibilityRole();
 });
 getTours=()=>{
     $.get("./data/tours.json",(response)=>{
-        console.log(response.data)
         const popularTours = response.data.slice(0, 3);
         let toursHtml='';
         let carouselHtml='';
@@ -28,7 +28,7 @@ getTours=()=>{
               <div class="container w-100">
                 <div class="row d-flex flex-row justify-content-between">
                   <div class="col d-flex justify-content-start px-0 ">
-                    <button href="#" class="btn" style="background-color: #84b870; color: white;">View more</button>
+                    <a href="?id=${tour.id}#view-tour" class="btn" style="background-color: #84b870; color: white;">View more</a>
                   </div>
                   <div class="col d-flex justify-content-end px-0">
         

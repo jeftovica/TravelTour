@@ -2,14 +2,13 @@ $('.carousel').carousel()
 
 $(document).ready(function(){
     getTour();
+    handleVisibilityRole();
 });
-
 getTour=()=>{
     var urlParams = new URLSearchParams(window.location.search);
     let id= urlParams.get('id');
 
     $.get(`./data/view-tour-${id}.json`,(response)=>{
-        console.log(response);
         $(".tour-img").attr("src", response.image);
         $("#tour-title").text(response.name);
         $("#tour-description").text(response.description);

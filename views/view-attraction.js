@@ -1,5 +1,6 @@
 $(document).ready(function(){
     getAttraction();
+    handleVisibilityRole();
 });
 
 getAttraction=()=>{
@@ -7,7 +8,6 @@ getAttraction=()=>{
     let id= urlParams.get('id');
 
     $.get(`./data/view-attraction-${id}.json`,(response)=>{
-        console.log(response);
         $(".attraction-img").attr("src", response.image);
         $("#attraction-title").text(response.name);
         $("#attraction-description").text(response.description);
