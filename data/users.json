@@ -1,0 +1,20 @@
+{
+    "data": [
+        {
+            "name": "Andjela",
+            "surname": "Jeftovic",
+            "phone": "+387 65 432 100",
+            "email": "andela.jeftovic@stu.ibu.edu.ba",
+            "password": "test123",
+            "role": "admin"
+        },
+        {
+            "name": "John",
+            "surname": "Doe",
+            "phone": "+387 65 432 123",
+            "email": "john.doe@stu.ibu.edu.ba",
+            "password": "test123",
+            "role": "user"
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+<h1 class="form-group my-5 text-center" style="color: #84b870;">My Tours</h1>
+
+
+
+<div class="d-flex flex-column justify-content-center align-items-center">
+  <form class="d-flex w-25 search-tours-form " role="search">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-my-tour">
+    <button class="btn btn-outline-success search-tour-button" type="submit" onclick="getTours()">Search</button>
+  </form>
+</div>
+
+
+
+<div class="container my-5">
+  <div class="responsive-grid-layout" id="my-tours-container">
+
+  </div>
+</div>
+
+<div class="modal fade" id="tourModalCancel" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalLabel">Cancel Tour</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="w-100 d-flex flex-column align-items-center justify-content-center my-5 mb-4">
+        <p style="font-size: 18px;">Are you sure you want to cancel this Tour?</p>
+        <div class="d-flex justify-content-center mt-4">
+          <button type="button" class="btn btn-outline-success btn-close-attraction-modal mx-2"
+            data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-primary mx-2"
+            style="background-color: #84b870; border-color: #84b870;">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./views/my-tours-page.js"></script>

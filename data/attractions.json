@@ -1,0 +1,59 @@
+{
+    "data": [
+        {
+            "id":1,
+            "name":"Attraction Name 1",
+            "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+            "image":"./assets/1a.jpg"
+        },
+        
+        {
+            "id":2,
+            "name":"Attraction Name 2",
+            "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+            "image":"./assets/2a.jpg"
+        },
+        
+        {
+            "id":3,
+            "name":"Attraction Name 3",
+            "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+            "image":"./assets/3a.jpg"
+        },
+        
+        {
+            "id":4,
+            "name":"Attraction Name 4",
+            "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+            "image":"./assets/4a.jpg"
+        },
+        
+        {
+            "id":5,
+            "name":"Attraction Name 5",
+            "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+            "image":"./assets/5a.jpg"
+        },
+        
+        {
+            "id":6,
+            "name":"Attraction Name 6",
+            "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+            "image":"./assets/6a.jpg"
+        },
+        
+        {
+            "id":7,
+            "name":"Attraction Name 7",
+            "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+            "image":"./assets/7a.jpg"
+        },
+        
+        {
+            "id":8,
+            "name":"Attraction Name 8",
+            "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+            "image":"./assets/8a.jpg"
+        }
+    ]
+}
