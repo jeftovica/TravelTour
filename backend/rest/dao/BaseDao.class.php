@@ -7,10 +7,12 @@ class BaseDao{
     public function __construct($table){
         $this -> table = $table;
         try {
-            $this -> connection = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";port=" . DB_PORT , DB_USER , DB_PASSWORD , [PDO::ATTR_ERRMOD=>PDO::ERRMOD_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC]);
+            $this -> connection = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";port=" . DB_PORT , DB_USER , DB_PASSWORD , [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC]);
         }
         catch(PDOException $e) {
             throw $e; 
         }
     }
+
+    
 }
