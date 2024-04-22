@@ -15,7 +15,8 @@ class UserService{
             return ["name"=>$user["name"],
              "surname"=>$user["surname"],
              "email"=>$user["email"],
-             "role"=>$user["is_admin"]==1? "admin":"user"
+             "role"=>$user["is_admin"]==1? "admin":"user",
+             "id"=>$user["id"]
             ];
         }
         return null;

@@ -1,10 +1,23 @@
 $(document).ready(function () {
   getTours();
   handleVisibilityRole();
+  getAttractions();
   $("#add-tour-form").get(0).reset();
+  $('.js-example-basic-multiple').select2({
+    dropdownParent: $('#add-tour-form .modal-body #choice-div'),
+    dropdownAutoWidth: true,
+    width: "100%",
+    padding: "0px"
+  });
 });
+
+let deletionId = -1;
+let editId = -1;
+let isEditTour = false;
+let allAttractons = []
 getTours = () => {
-  $.get("./data/tours.json", (response) => {
+  $.get(Constants.API_BASE_URL + 'get_all_tours.php', (response) => {
+    response = JSON.parse(response)
     let searchText = document.querySelector('#search-tour').value;
     if (searchText != "") {
       response.data = response.data.filter(function (tour) {
@@ -14,7 +27,7 @@ getTours = () => {
     let toursHtml = '';
     response.data.map(tour => {
       toursHtml += `<div class="card px-0" style="width: 18rem; height: 20rem;">
-            <img class="card-img-top" src="${tour.image}" alt="Card image cap">
+            <img class="card-img-top" src="${tour.image_url}" alt="Card image cap">
             <div class="card-body">
               <div class="container w-100">
                 <div class="row d-flex flex-row justify-content-between">
@@ -26,16 +39,16 @@ getTours = () => {
                   </div>
                 </div>
               </div>
-              <p class="card-text mt-3 mb-3">${tour.date}</p>
+              <p class="card-text mt-3 mb-3">${tour.start_date} - ${tour.end_date}</p>
               <div class="container w-100">
                 <div class="row d-flex flex-row justify-content-between">
                   <div class="col d-flex justify-content-start px-0 ">
                     <a href="?id=${tour.id}#view-tour" class="btn" style="background-color: #84b870; color: white;">View more</a>
                   </div>
                   <div class="col d-flex justify-content-end px-0">
-                    <button class="btn trash-btn admin-only" data-bs-toggle="modal" data-bs-target="#tourModalDelete"><i
+                    <button class="btn trash-btn admin-only" onclick="setDeletionId(${tour.id})" data-bs-toggle="modal" data-bs-target="#tourModalDelete"><i
                         class="fa fa-trash"></i></button>
-                    <button class="btn edit-btn admin-only" data-bs-toggle="modal" data-bs-target="#tourModal"><i
+                    <button class="btn edit-btn admin-only" onclick="setEditData(${tour.id})" data-bs-toggle="modal" data-bs-target="#tourModal"><i
                         class="fa fa-edit"></i></button>
                   </div>
                 </div>
@@ -47,18 +60,104 @@ getTours = () => {
     handleVisibilityRole();
   });
 };
-
-addTour = () => {
+setDeletionId = (id) => {
+  deletionId = id;
+}
+setAddTour = () => {
+  isEditTour = false;
+}
+sendTour = () => {
+  if (isEditTour) {
+    console.log("edit")
+    editTour();
+  }
+  else {
+    console.log("add");
+    addTour();
+  }
+}
+editTour = () => {
+  let attractions = []
+  $('#multiple-select').select2('data').forEach((val) => { attractions.push(val['id']) })
   let name = document.querySelector("#name").value;
   let description = document.querySelector('#description').value;
-  let image = document.querySelector("#image").value;
   let date1 = document.querySelector("#formDate1").value;
   let date2 = document.querySelector("#formDate2").value;
   let bam = document.querySelector("#valute").value;
-  let attractions = document.querySelector("#attractions").value;
-  let newTour = { "name": name, "description": description, "image": image, "image": image, "formDate1": date1, "formDate2": date2, "bam": bam, "attractions": attractions }
-  console.log(newTour);
-  $("#add-tour-form").get(0).reset();
-  alert("Adding successful!");
+  let editedTour = {id:editId, "name": name, "description": description, "startDate": date1, "endDate": date2, "price": bam, "attractions": attractions }
+  $.ajax({
+    url: Constants.API_BASE_URL + `edit_tour.php`,
+    type: 'PUT',
+    data: JSON.stringify(editedTour),
+    contentType: 'application/json',
+    success: function (result) {
+      $("#add-tour-form").get(0).reset();
+      location.reload();
+    }
+  });
+}
+setEditData = (id) => {
+  isEditTour = true;
+  $.get(Constants.API_BASE_URL + `get_tour.php?id=${id}`, (response) => {
+    response = JSON.parse(response).data;
+    document.querySelector("#name").value = response.name;
+    document.querySelector('#description').value = response.description;
+    document.querySelector("#formDate1").value = response.start_date;
+    document.querySelector("#formDate2").value = response.end_date;
+    document.querySelector("#valute").value = response.price;
+    editId = id;
+    let selectedAttractions = [];
+    response.attractions.forEach((attr) => {
+        selectedAttractions.push(attr.id)
+    })
+    console.log(selectedAttractions)
+    $('#multiple-select').val(selectedAttractions).change()
+  })
 }
 
+getAttractions = () => {
+  $.get(Constants.API_BASE_URL + 'get_all_attractions.php', (response) => {
+    response = JSON.parse(response)
+    allAttractons = response.data;
+    let attractionsHtml = '';
+    response.data.map(attraction => {
+      attractionsHtml += `<option value="${attraction.id}">${attraction.name}</option>`;
+    });
+    console.log(response);
+    $("#multiple-select").html(attractionsHtml);
+    handleVisibilityRole();
+  });
+};
+
+addTour = () => {
+  let attractions = []
+  $('#multiple-select').select2('data').forEach((val) => { attractions.push(val['id']) })
+  let name = document.querySelector("#name").value;
+  let description = document.querySelector('#description').value;
+  let image = './assets/1.jpg';
+  let date1 = document.querySelector("#formDate1").value;
+  let date2 = document.querySelector("#formDate2").value;
+  let bam = document.querySelector("#valute").value;
+  let newTour = { "name": name, "description": description, "image": image, "startDate": date1, "endDate": date2, "price": bam, "attractions": attractions }
+  $.post({
+    url: Constants.API_BASE_URL + 'add_tour.php', data: JSON.stringify(newTour), contentType: 'application/json', success: (response) => {
+      $("#add-tour-form").get(0).reset();
+      alert("Adding successful!");
+      location.reload();
+    }
+  });
+}
+deleteTour = () => {
+  $.ajax({
+    url: Constants.API_BASE_URL + `delete_tour.php?id=${deletionId}`,
+    type: 'DELETE',
+    success: function (result) {
+      $('#tourModalDelete').modal('hide');
+      location.reload();
+    }
+  });
+}
+
+cancelAction=()=>{
+  $("#add-tour-form").get(0).reset();
+}

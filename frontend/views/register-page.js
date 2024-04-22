@@ -14,9 +14,10 @@ register = () => {
         var errorMessage = document.querySelector("#invalid-register-message");
         if (errorMessage) {
             errorMessage.style.display = "block"
-            errorMessage.textContent = "Passwords do not mach."
+            errorMessage.textContent = "Passwords do not match."
         }
     }
+    /* TODO
     $.get("./data/users.json", (response) => {
         response.data.map((user) => {
             if (user.email === email) {
@@ -28,7 +29,7 @@ register = () => {
                 }
             }
         })
-    })
+    }) */
     let newUser = { "name": name, "surname": surname, "phone": phone, "email": email, "password": password }
     $.post(Constants.API_BASE_URL + 'add_user.php', newUser).done(() => {
         $("#register-form").get(0).reset();
