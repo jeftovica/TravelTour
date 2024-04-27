@@ -8,11 +8,13 @@ getTour=()=>{
     var urlParams = new URLSearchParams(window.location.search);
     let id= urlParams.get('id');
 
-    $.get(`./data/view-tour-${id}.json`,(response)=>{
-        $(".tour-img").attr("src", response.image);
+    $.get(Constants.API_BASE_URL + `get_tour.php?id=${id}`,(response)=>{
+        response=JSON.parse(response).data;
+        console.log(response);
+        $(".tour-img").attr("src", response.image_url);
         $("#tour-title").text(response.name);
         $("#tour-description").text(response.description);
-        $("#tour-date").text(response.date);
+        $("#tour-date").text(response.start_date+" - "+response.end_date);
         $("#tour-price").text(`${response.price}BAM`);
 
         let toursHtml='';
@@ -25,14 +27,14 @@ getTour=()=>{
             <th scope="row">${i}</th>
             <td>${reservation.name}</td>
             <td>${reservation.surname}</td>
-            <td>${reservation.number}</td>
+            <td>${reservation.phone_number}</td>
           </tr>`;
           i+=1;
         })
 
         response.attractions.map(attraction=>{
             toursHtml+=`<div class="card px-0" style="width: 18rem;">
-            <img class="card-img-top" src="${attraction.image}" alt="Card image cap">
+            <img class="card-img-top" src="${attraction.image_url}" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">${attraction.name}</h5>
                 <p class="card-text">${attraction.description}</p>
@@ -40,16 +42,16 @@ getTour=()=>{
             </div>
         </div>`;
         if (isFirst){
-          carouselHtml+=`<div class="carousel-item active">
-          <img src="${attraction.image}" class="d-block w-100" alt="...">
+          carouselHtml+=`<div id="carousel-item-id-${attraction.id}" class="carousel-item active">
+          <img src="${attraction.image_url}" class="d-block w-100" alt="...">
           <div class="carousel-caption d-none d-md-block">
             <h5>${attraction.name}</h5>
           </div>
         </div>`;
         isFirst=false;}
         else{
-            carouselHtml+=`<div class="carousel-item">
-          <img src="${attraction.image}" class="d-block w-100" alt="...">
+            carouselHtml+=`<div id="carousel-item-id-${attraction.id}" class="carousel-item">
+          <img src="${attraction.image_url}" class="d-block w-100" alt="...">
           <div class="carousel-caption d-none d-md-block">
             <h5>${attraction.name}</h5>
           </div>
@@ -62,4 +64,18 @@ getTour=()=>{
         });
 
     
+}
+reserve=()=>{
+  var urlParams = new URLSearchParams(window.location.search);
+  let id= urlParams.get('id');
+  let user = JSON.parse(localStorage.getItem("user"));
+  $.ajax({
+    url: Constants.API_BASE_URL + `add_reservation.php`,
+    type: 'POST',
+    data: JSON.stringify({tour_id:id,user_id:user.id}),
+    contentType: 'application/json',
+    success: function (result) {
+      location.reload();
+    }
+  });
 }

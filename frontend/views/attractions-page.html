@@ -10,12 +10,12 @@
     </div>
     <div class="col d-flex justify-content-end">
       <button type="button" class="btn btn-primary admin-only" style="background-color: #84b870; border-color: #84b870;"
-        data-bs-toggle="modal" data-bs-target="#attractionModal">
+        data-bs-toggle="modal" onclick="setAddAttraction()" data-bs-target="#attractionModal">
         Add New Attraction </button>
 
       <div class="modal fade" id="attractionModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <form id="add-attraction-form" onsubmit="addAttraction()">
+          <form id="add-attraction-form" onsubmit="sendAttraction()">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="modalLabel">Attraction Creation</h1>
@@ -33,7 +33,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-outline-success btn-close-attraction-modal"
+              <button type="button" onclick="cancelAction()" class="btn btn-outline-success btn-close-attraction-modal"
                 data-bs-dismiss="modal">Discard</button>
               <button type="submit" class="btn btn-primary"
                 style="background-color: #84b870; border-color: #84b870;">Create</button>
@@ -54,7 +54,7 @@
               <div class="d-flex justify-content-center mt-4">
                 <button type="button" class="btn btn-outline-success btn-close-attraction-modal mx-2"
                   data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary mx-2"
+                <button type="button" class="btn btn-primary mx-2" onclick="deleteAttraction()"
                   style="background-color: #84b870; border-color: #84b870;">Delete</button>
               </div>
             </div>
