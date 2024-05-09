@@ -2,10 +2,11 @@ $(document).ready(function () {
   getTours();
 });
 getTours = () => {
-  $.get("./data/tours.json", (response) => {
+  let id= JSON.parse(localStorage.getItem('user')).id
+  $.get(Constants.API_BASE_URL + `get_my_tours.php?id=${id}`, (response) => {
 
+    let myTours = JSON.parse(response).data
 
-    let myTours = response.data.slice(0, 2);
 
     let searchText = document.querySelector('#search-my-tour').value;
     if (searchText != "") {
@@ -17,7 +18,7 @@ getTours = () => {
     let toursHtml = '';
     myTours.map(tour => {
       toursHtml += `<div class="card px-0" style="width: 18rem; height: 20rem;">
-            <img class="card-img-top" src="${tour.image}" alt="Card image cap">
+            <img class="card-img-top" src="${tour.image_url}" alt="Card image cap">
             <div class="card-body">
               <div class="container w-100">
                 <div class="row d-flex flex-row justify-content-between">
@@ -29,15 +30,13 @@ getTours = () => {
                   </div>
                 </div>
               </div>
-              <p class="card-text mt-3 mb-3">${tour.date}</p>
+              <p class="card-text mt-3 mb-3">${tour.start_date} - ${tour.end_date}</p>
               <div class="container w-100">
                 <div class="row d-flex flex-row justify-content-between">
                   <div class="col d-flex justify-content-start px-0 ">
                     <a href="?id=${tour.id}#view-tour" class="btn" style="background-color: #84b870; color: white;">View more</a>
                   </div>
-                  <div class="col d-flex justify-content-end px-0">
-                <button class="btn cancel-btn" data-bs-toggle="modal" data-bs-target="#tourModalCancel">Cancel Tour</button>
-              </div>
+                  
                 </div>
               </div>
             </div>

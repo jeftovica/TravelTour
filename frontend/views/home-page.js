@@ -5,14 +5,14 @@ $(document).ready(function(){
     handleVisibilityRole();
 });
 getTours=()=>{
-    $.get("./data/tours.json",(response)=>{
-        const popularTours = response.data.slice(0, 3);
+    $.get(Constants.API_BASE_URL + 'get_popular_tours.php',(response)=>{
+        const popularTours = JSON.parse(response).data
         let toursHtml='';
         let carouselHtml='';
         let isFirst=true;
         popularTours.map(tour=>{
             toursHtml+=`<div class="card px-0" style="width: 18rem; height: 20rem;">
-            <img class="card-img-top" src="${tour.image}" alt="Card image cap">
+            <img class="card-img-top" src="${tour.image_url}" alt="Card image cap">
             <div class="card-body">
               <div class="container w-100">
                 <div class="row d-flex flex-row justify-content-between">
@@ -24,7 +24,7 @@ getTours=()=>{
                   </div>
                 </div>
               </div>
-              <p class="card-text mt-3 mb-3">${tour.date}</p>
+              <p class="card-text mt-3 mb-3">${tour.start_date} - ${tour.end_date}</p>
               <div class="container w-100">
                 <div class="row d-flex flex-row justify-content-between">
                   <div class="col d-flex justify-content-start px-0 ">
@@ -39,7 +39,7 @@ getTours=()=>{
           </div>`;
         if (isFirst){
           carouselHtml+=`<div class="carousel-item active">
-          <img src="${tour.image}" class="d-block w-100" alt="...">
+          <img src="${tour.image_url}" class="d-block w-100" alt="...">
           <div class="carousel-caption d-none d-md-block">
             <h5>${tour.name}</h5>
           </div>
@@ -47,7 +47,7 @@ getTours=()=>{
         isFirst=false;}
         else{
             carouselHtml+=`<div class="carousel-item">
-          <img src="${tour.image}" class="d-block w-100" alt="...">
+          <img src="${tour.image_url}" class="d-block w-100" alt="...">
           <div class="carousel-caption d-none d-md-block">
             <h5>${tour.name}</h5>
           </div>
