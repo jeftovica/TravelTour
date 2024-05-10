@@ -7,8 +7,17 @@ let deletionId = -1;
 let editId=-1;
 let isEditAttraction=false;
 getAttractions = () => {
-  $.get(Constants.API_BASE_URL + 'get_all_attractions.php', (response) => {
-    response = JSON.parse(response)
+  $.ajax({url: Constants.API_BASE_URL + 'attractions',
+  type: "GET",
+  beforeSend: function (xhr) {
+    if (Utils.get_from_localstorage("user")) {
+      xhr.setRequestHeader(
+        "Authentication",
+        Utils.get_from_localstorage("user")
+      );
+    }
+  },
+  success: (response) => {
     let searchText = document.querySelector('#search-attraction').value;
     if (searchText != "") {
       response.data = response.data.filter(function (attraction) {
@@ -41,7 +50,7 @@ getAttractions = () => {
     });
     $("#attractions-container").html(attractionsHtml);
     handleVisibilityRole();
-  });
+  }});
 };
 setDeletionId = (id) => {
   deletionId = id;
@@ -70,8 +79,18 @@ addAttraction = () => {
   let description = document.querySelector('#description').value;
   let image = document.querySelector("#formFile").value;
   let newAttraction = { name: name, description: description, image: "assets/1.jpg" }
-  $.post({
-    url: Constants.API_BASE_URL + 'add_attraction.php', data: JSON.stringify(newAttraction), contentType: 'application/json', success: (response) => {
+  $.ajax({
+    url: Constants.API_BASE_URL + 'attractions/add', data: JSON.stringify(newAttraction), contentType: 'application/json',
+    type: "POST",
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
+    success: (response) => {
       $("#add-attraction-form").get(0).reset();
       alert("Adding successful!");
       location.reload();
@@ -80,8 +99,16 @@ addAttraction = () => {
 }
 deleteAttraction = () => {
   $.ajax({
-    url: Constants.API_BASE_URL + `delete_attraction.php?id=${deletionId}`,
+    url: Constants.API_BASE_URL + `attractions/delete/${deletionId}`,
     type: 'DELETE',
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
     success: function (result) {
       $('#attractionModalDelete').modal('hide');
       location.reload();
@@ -97,8 +124,16 @@ editAttraction = () => {
   let description = document.querySelector('#description').value;
   let editedAttraction = { id:editId,name: name, description: description}
   $.ajax({
-    url: Constants.API_BASE_URL + `edit_attraction.php`,
+    url: Constants.API_BASE_URL + `attracitons/edit`,
     type: 'PUT',
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
     data: JSON.stringify(editedAttraction),
     contentType: 'application/json',
     success: function (result) {

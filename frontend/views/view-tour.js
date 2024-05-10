@@ -8,8 +8,18 @@ getTour=()=>{
     var urlParams = new URLSearchParams(window.location.search);
     let id= urlParams.get('id');
 
-    $.get(Constants.API_BASE_URL + `get_tour.php?id=${id}`,(response)=>{
-        response=JSON.parse(response).data;
+    $.ajax({url: Constants.API_BASE_URL + `tours/one/${id}`,
+    type: "GET",
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
+    success: (response)=>{
+        response=response.data;
         console.log(response);
         $(".tour-img").attr("src", response.image_url);
         $("#tour-title").text(response.name);
@@ -61,7 +71,7 @@ getTour=()=>{
         $("#tours-attractions").html(toursHtml);
         $("#carouselExampleCaptions .carousel-inner").html(carouselHtml);
         $("#reservation-table tbody").html(reservationsHtml);
-        });
+        }});
 
     
 }
@@ -70,8 +80,16 @@ reserve=()=>{
   let id= urlParams.get('id');
   let user = JSON.parse(localStorage.getItem("user"));
   $.ajax({
-    url: Constants.API_BASE_URL + `add_reservation.php`,
+    url: Constants.API_BASE_URL + `tours/reservation`,
     type: 'POST',
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
     data: JSON.stringify({tour_id:id,user_id:user.id}),
     contentType: 'application/json',
     success: function (result) {

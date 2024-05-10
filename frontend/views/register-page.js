@@ -31,7 +31,7 @@ register = () => {
         })
     }) */
     let newUser = { "name": name, "surname": surname, "phone": phone, "email": email, "password": password }
-    $.post(Constants.API_BASE_URL + 'add_user.php', newUser).done(() => {
+    $.post(Constants.API_BASE_URL + 'users/add', newUser).done(() => {
         $("#register-form").get(0).reset();
         window.location.hash = "#login-page";
     });

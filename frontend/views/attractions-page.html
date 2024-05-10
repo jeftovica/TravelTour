@@ -3,7 +3,7 @@
 <div class="container">
   <div class="responsive-grid-layout">
     <div class="col">
-      <form class="d-flex w-25 search-attractions-form " role="search">
+      <form method="post" class="d-flex w-25 search-attractions-form " role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-attraction">
         <button class="btn btn-outline-success search-attraction-button" type="submit" onclick="getAttractions()">Search</button>
       </form>
@@ -15,7 +15,7 @@
 
       <div class="modal fade" id="attractionModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <form id="add-attraction-form" onsubmit="sendAttraction()">
+          <form method="post" id="add-attraction-form" onsubmit="sendAttraction()">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="modalLabel">Attraction Creation</h1>

@@ -16,8 +16,17 @@ let editId = -1;
 let isEditTour = false;
 let allAttractons = []
 getTours = () => {
-  $.get(Constants.API_BASE_URL + 'tours', (response) => {
-    response = JSON.parse(response)
+  $.ajax({url: Constants.API_BASE_URL + 'tours',
+  type: "GET",
+  beforeSend: function (xhr) {
+    if (Utils.get_from_localstorage("user")) {
+      xhr.setRequestHeader(
+        "Authentication",
+        Utils.get_from_localstorage("user")
+      );
+    }
+  },
+  success: (response) => {
     let searchText = document.querySelector('#search-tour').value;
     if (searchText != "") {
       response.data = response.data.filter(function (tour) {
@@ -58,7 +67,7 @@ getTours = () => {
     });
     $("#tours-container").html(toursHtml);
     handleVisibilityRole();
-  });
+  }});
 };
 setDeletionId = (id) => {
   deletionId = id;
@@ -86,8 +95,16 @@ editTour = () => {
   let bam = document.querySelector("#valute").value;
   let editedTour = {id:editId, "name": name, "description": description, "startDate": date1, "endDate": date2, "price": bam, "attractions": attractions }
   $.ajax({
-    url: Constants.API_BASE_URL + `edit_tour.php`,
+    url: Constants.API_BASE_URL + `tours/edit`,
     type: 'PUT',
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
     data: JSON.stringify(editedTour),
     contentType: 'application/json',
     success: function (result) {
@@ -98,8 +115,19 @@ editTour = () => {
 }
 setEditData = (id) => {
   isEditTour = true;
-  $.get(Constants.API_BASE_URL + `get_tour.php?id=${id}`, (response) => {
-    response = JSON.parse(response).data;
+  $.ajax({url: Constants.API_BASE_URL + `tours/one/${id}`,
+  type: "GET",
+  beforeSend: function (xhr) {
+    if (Utils.get_from_localstorage("user")) {
+      xhr.setRequestHeader(
+        "Authentication",
+        Utils.get_from_localstorage("user")
+      );
+    }
+  },
+  success: (response) => {
+    console.log(response);
+    response=response.data;
     document.querySelector("#name").value = response.name;
     document.querySelector('#description').value = response.description;
     document.querySelector("#formDate1").value = response.start_date;
@@ -112,12 +140,21 @@ setEditData = (id) => {
     })
     console.log(selectedAttractions)
     $('#multiple-select').val(selectedAttractions).change()
-  })
+  }})
 }
 
 getAttractions = () => {
-  $.get(Constants.API_BASE_URL + 'get_all_attractions.php', (response) => {
-    response = JSON.parse(response)
+  $.ajax({url: Constants.API_BASE_URL + 'attractions',
+  type: "GET",
+  beforeSend: function (xhr) {
+    if (Utils.get_from_localstorage("user")) {
+      xhr.setRequestHeader(
+        "Authentication",
+        Utils.get_from_localstorage("user")
+      );
+    }
+  },
+  success: (response) => {
     allAttractons = response.data;
     let attractionsHtml = '';
     response.data.map(attraction => {
@@ -126,7 +163,7 @@ getAttractions = () => {
     console.log(response);
     $("#multiple-select").html(attractionsHtml);
     handleVisibilityRole();
-  });
+  }});
 };
 
 addTour = () => {
@@ -139,8 +176,18 @@ addTour = () => {
   let date2 = document.querySelector("#formDate2").value;
   let bam = document.querySelector("#valute").value;
   let newTour = { "name": name, "description": description, "image": image, "startDate": date1, "endDate": date2, "price": bam, "attractions": attractions }
-  $.post({
-    url: Constants.API_BASE_URL + 'add_tour.php', data: JSON.stringify(newTour), contentType: 'application/json', success: (response) => {
+  $.ajax({
+    url: Constants.API_BASE_URL + 'tours/add', data: JSON.stringify(newTour), contentType: 'application/json',
+    type: "POST",
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
+    success: (response) => {
       $("#add-tour-form").get(0).reset();
       alert("Adding successful!");
       location.reload();
@@ -149,8 +196,16 @@ addTour = () => {
 }
 deleteTour = () => {
   $.ajax({
-    url: Constants.API_BASE_URL + `delete_tour.php?id=${deletionId}`,
+    url: Constants.API_BASE_URL + `tours/delete/${deletionId}`,
     type: 'DELETE',
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
     success: function (result) {
       $('#tourModalDelete').modal('hide');
       location.reload();
