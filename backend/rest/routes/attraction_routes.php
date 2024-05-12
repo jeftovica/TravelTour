@@ -12,6 +12,9 @@ Flight::set('attraction_service', new AttractionService());
      *      path="/attractions",
      *      tags={"attractions"},
      *      summary="Get all attractions",
+     *      security={
+     *          {"ApiKey": {}}   
+     *      },
      *      @OA\Response(
      *           response=200,
      *           description="Array of all attractions in the databases"
@@ -40,6 +43,9 @@ Flight::route('GET /attractions', function(){
  *      path="/attractions/one/{attraction_id}",
  *      tags={"attractions"},
  *      summary="Get attraction by id",
+ *      security={
+ *          {"ApiKey": {}}   
+ *      },
  *      @OA\Parameter(
  *         name="attraction_id",
  *         in="path",
@@ -79,6 +85,9 @@ Flight::route('GET /attractions/one/@attraction_id', function($attraction_id){
      *      path="/attractions/add",
      *      tags={"attractions"},
      *      summary="Add attraction data to the database",
+     *      security={
+     *          {"ApiKey": {}}   
+     *      },
      *      @OA\Response(
      *           response=200,
      *           description="Attraction data, or exception if attraction is not added properly"
@@ -141,6 +150,9 @@ Flight::route('POST /attractions/add', function(){
  *      path="/attractions/delete/{attraction_id}",
  *      tags={"attractions"},
  *      summary="Delete attraction by id",
+ *      security={
+ *          {"ApiKey": {}}   
+ *      },
  *      @OA\Parameter(
  *         name="attraction_id",
  *         in="path",
@@ -181,6 +193,9 @@ Flight::route('DELETE /attractions/delete/@attraction_id', function($attraction_
  *      path="/attractions/edit",
  *      tags={"attractions"},
  *      summary="Edit existing attraction data in the database",
+ *      security={
+ *          {"ApiKey": {}}   
+ *      },
  *      @OA\Response(
  *           response=200,
  *           description="Attraction data updated successfully"

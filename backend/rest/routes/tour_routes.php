@@ -12,6 +12,9 @@ Flight::set('tour_service', new TourService());
      *      path="/tours",
      *      tags={"tours"},
      *      summary="Get all tours",
+     *      security={
+     *          {"ApiKey": {}}   
+     *      },
      *      @OA\Response(
      *           response=200,
      *           description="Array of all tours in the databases"
@@ -34,12 +37,14 @@ Flight::route('GET /tours', function(){
     Flight::json(['data'=> $tours]);
 });
 
-// ?
 /**
      * @OA\Post(
      *      path="/tours/reservation",
      *      tags={"tours"},
      *      summary="Add reservation data to the database",
+     *      security={
+     *          {"ApiKey": {}}   
+     *      },
      *      @OA\Response(
      *           response=200,
      *           description="Reservation data, or exception if reservation is not added properly"
@@ -78,12 +83,18 @@ Flight::route('POST /tours/reservation', function(){
     Flight::json(['message'=>'You have successfully added new reservation']);
 });
 
-// ?
+
 /**
      * @OA\Post(
      *      path="/tours/add",
      *      tags={"tours"},
      *      summary="Add tour data to the database",
+     *      security={
+     *          {"ApiKey": {}}   
+     *      },
+     *      security={
+     *          {"ApiKey": {}}   
+     *      },
      *      @OA\Response(
      *           response=200,
      *           description="Tour data, or exception if tour is not added properly"
@@ -160,6 +171,9 @@ Flight::route('POST /tours/add', function(){
  *      path="/tours/delete/{tour_id}",
  *      tags={"tours"},
  *      summary="Delete tour by id",
+ *      security={
+ *          {"ApiKey": {}}   
+ *      },
  *      @OA\Parameter(
  *         name="tour_id",
  *         in="path",
@@ -200,6 +214,9 @@ Flight::route('DELETE /tours/delete/@tour_id', function($tour_id){
  *      path="/tours/edit",
  *      tags={"tours"},
  *      summary="Edit existing tour data in the database",
+ *      security={
+ *          {"ApiKey": {}}   
+ *      },
  *      @OA\Response(
  *           response=200,
  *           description="Tour data updated successfully"
@@ -278,6 +295,9 @@ Flight::route('POST /tours/edit', function(){
      *      path="/tours/my",
      *      tags={"tours"},
      *      summary="Get users tours",
+     *      security={
+     *          {"ApiKey": {}}   
+     *      },
      *      @OA\Response(
      *           response=200,
      *           description="Tours data, or false if tour does not exist"
@@ -309,6 +329,9 @@ Flight::route('GET /tours/my', function(){
      *      path="/tours/popular",
      *      tags={"tours"},
      *      summary="Get popular tours",
+     *      security={
+     *          {"ApiKey": {}}   
+     *      },
      *      @OA\Response(
      *           response=200,
      *           description="Tours data, or false if tour does not exist"
@@ -337,6 +360,9 @@ Flight::route('GET /tours/popular', function(){
  *      path="/tours/one/{tour_id}",
  *      tags={"tours"},
  *      summary="Get tour",
+ *      security={
+ *          {"ApiKey": {}}   
+ *      },
  *      @OA\Parameter(
  *         name="tour_id",
  *         in="path",

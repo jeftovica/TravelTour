@@ -6,23 +6,7 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 Flight::set('user_service', new UserService());
-/**
- * @OA\Info(
- *   title="API",
- *   description="Web programming API",
- *   version="1.0",
- *   @OA\Contact(
- *     email="becir.isakovic@ibu.edu.ba",
- *     name="Becir Isakovic"
- *   )
- * ),
- * @OA\SecurityScheme(
- *     securityScheme="ApiKey",
- *     type="apiKey",
- *     in="header",
- *     name="Authentication"
- * )
- */
+
 /**
      * @OA\Post(
      *      path="/users",
@@ -124,7 +108,7 @@ Flight::route('POST /users/add', function(){
 /**
      * @OA\Post(
      *      path="/logout",
-     *      tags={"logout"},
+     *      tags={"users"},
      *      summary="Logout from the system",
      *      security={
      *          {"ApiKey": {}}   
@@ -155,8 +139,11 @@ Flight::route('POST /logout', function() {
 /**
      * @OA\Get(
      *      path="/whoAmI",
-     *      tags={"whoAmI"},
+     *      tags={"users"},
      *      summary="Get user role",
+     *      security={
+     *          {"ApiKey": {}}   
+     *      },
      *      @OA\Response(
      *           response=200,
      *           description="User role"

@@ -361,7 +361,7 @@ paths:
   /logout:
     post:
       tags:
-        - logout
+        - users
       summary: 'Logout from the system'
       responses:
         '200':
@@ -372,7 +372,7 @@ paths:
   /whoAmI:
     get:
       tags:
-        - whoAmI
+        - users
       summary: 'Get user role'
       responses:
         '200':

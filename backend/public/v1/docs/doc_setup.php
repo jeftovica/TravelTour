@@ -3,11 +3,11 @@
 /**
  * @OA\Info(
  *   title="API",
- *   description="Web programming API",
+ *   description="Travel Tour API",
  *   version="1.0",
  *   @OA\Contact(
- *     email="becir.isakovic@ibu.edu.ba",
- *     name="Becir Isakovic"
+ *     email="andela.jeftovic@stu.ibu.edu.ba",
+ *     name="Andjela Jeftovic"
  *   )
  * ),
  * @OA\OpenApi(
