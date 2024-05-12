@@ -41,12 +41,14 @@ Flight::route('GET /attractions', function(){
  *      tags={"attractions"},
  *      summary="Get attraction by id",
  *      @OA\Parameter(
- *          name="attraction_id",
- *          in="path",
- *          required=true, // Add required property here
- *          @OA\Schema(type="number"),
- *          example="1",
- *          description="Attraction ID"
+ *         name="attraction_id",
+ *         in="path",
+ *         description="ID of the attraction",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64"
+ *         )
  *      ),
  *      @OA\Response(
  *           response=200,
@@ -140,12 +142,14 @@ Flight::route('POST /attractions/add', function(){
  *      tags={"attractions"},
  *      summary="Delete attraction by id",
  *      @OA\Parameter(
- *          name="attraction_id",
- *          in="path",
- *          required=true, // Add required property here
- *          @OA\Schema(type="number"),
- *          example="1",
- *          description="Attraction ID"
+ *         name="attraction_id",
+ *         in="path",
+ *         description="ID of the attraction",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64"
+ *         )
  *      ),
  *      @OA\Response(
  *           response=200,

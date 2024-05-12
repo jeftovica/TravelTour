@@ -161,12 +161,14 @@ Flight::route('POST /tours/add', function(){
  *      tags={"tours"},
  *      summary="Delete tour by id",
  *      @OA\Parameter(
- *          name="tour_id",
- *          in="path",
- *          required=true, // Add required property here
- *          @OA\Schema(type="number"),
- *          example="1",
- *          description="Tour ID"
+ *         name="tour_id",
+ *         in="path",
+ *         description="ID of the tour",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64"
+ *         )
  *      ),
  *      @OA\Response(
  *           response=200,
@@ -336,12 +338,14 @@ Flight::route('GET /tours/popular', function(){
  *      tags={"tours"},
  *      summary="Get tour",
  *      @OA\Parameter(
- *          name="tour_id",
- *          in="path",
- *          required=true, // Add required property here
- *          @OA\Schema(type="number"),
- *          example="1",
- *          description="Tour ID"
+ *         name="tour_id",
+ *         in="path",
+ *         description="ID of the tour",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64"
+ *         )
  *      ),
  *      @OA\Response(
  *           response=200,

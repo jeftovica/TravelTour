@@ -15,6 +15,23 @@ paths:
       responses:
         '200':
           description: 'Array of all attractions in the databases'
+  '/attractions/one/{attraction_id}':
+    get:
+      tags:
+        - attractions
+      summary: 'Get attraction by id'
+      parameters:
+        -
+          name: attraction_id
+          in: path
+          description: 'ID of the attraction'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'Attraction data, or false if attraction does not exist'
   /attractions/add:
     post:
       tags:
@@ -50,6 +67,23 @@ paths:
       responses:
         '200':
           description: 'Attraction data, or exception if attraction is not added properly'
+  '/attractions/delete/{attraction_id}':
+    delete:
+      tags:
+        - attractions
+      summary: 'Delete attraction by id'
+      parameters:
+        -
+          name: attraction_id
+          in: path
+          description: 'ID of the attraction'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'Deleted attraction data or 500 status code exception otherwise'
   /attractions/edit:
     post:
       tags:
@@ -158,6 +192,23 @@ paths:
       responses:
         '200':
           description: 'Tour data, or exception if tour is not added properly'
+  '/tours/delete/{tour_id}':
+    delete:
+      tags:
+        - tours
+      summary: 'Delete tour by id'
+      parameters:
+        -
+          name: tour_id
+          in: path
+          description: 'ID of the tour'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'Deleted tour data or 500 status code exception otherwise'
   /tours/edit:
     post:
       tags:
@@ -219,6 +270,23 @@ paths:
       responses:
         '200':
           description: 'Tours data, or false if tour does not exist'
+  '/tours/one/{tour_id}':
+    get:
+      tags:
+        - tours
+      summary: 'Get tour'
+      parameters:
+        -
+          name: tour_id
+          in: path
+          description: 'ID of the tour'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'Tour data, or false if tour does not exist'
   /users:
     post:
       tags:
