@@ -90,10 +90,10 @@ Flight::route('POST /users', function(){
      *              @OA\Property(property="name", type="string", example="User 1", description="Users name"),
      *              @OA\Property(property="surname", type="string", example="Surname 1", description="Users surname"),
      *              @OA\Property(property="phone", type="string", example="+38765432789", description="Users number"),
-     *              @OA\Property(property="email", type="string", example="example@example.com", description="Users email")
+     *              @OA\Property(property="email", type="string", example="example@example.com", description="Users email"),
      *              @OA\Property(property="password", type="string", example="some_password", description="Users password"),
      *          )
-     *      )
+     *      ),
      * )
      */
 Flight::route('POST /users/add', function(){

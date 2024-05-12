@@ -4,7 +4,7 @@ require __DIR__ . '/../../../vendor/autoload.php';
 
 define('BASE_URL', 'http://localhost:8018/TravelTour/backend/');
 
-error_reporting(0);
+error_reporting(E_ALL);
 
 $openapi = \OpenApi\Generator::scan(['../../../rest/routes', './']);
 header('Content-Type: application/x-yaml');

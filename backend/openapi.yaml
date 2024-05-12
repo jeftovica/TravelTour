@@ -313,6 +313,51 @@ paths:
       responses:
         '200':
           description: 'User data and JWT'
+  users/add:
+    post:
+      tags:
+        - users
+      summary: 'Add user data to the database'
+      requestBody:
+        description: 'User data payload'
+        content:
+          application/json:
+            schema:
+              required:
+                - name
+                - surname
+                - phone
+                - email
+                - password
+              properties:
+                id:
+                  description: 'User ID'
+                  type: string
+                  example: '1'
+                name:
+                  description: 'Users name'
+                  type: string
+                  example: 'User 1'
+                surname:
+                  description: 'Users surname'
+                  type: string
+                  example: 'Surname 1'
+                phone:
+                  description: 'Users number'
+                  type: string
+                  example: '+38765432789'
+                email:
+                  description: 'Users email'
+                  type: string
+                  example: example@example.com
+                password:
+                  description: 'Users password'
+                  type: string
+                  example: some_password
+              type: object
+      responses:
+        '200':
+          description: 'User data, or exception if user is not added properly'
   /logout:
     post:
       tags:
