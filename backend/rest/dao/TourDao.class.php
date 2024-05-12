@@ -83,6 +83,10 @@ class TourDao extends BaseDao{
     public function edit_tour($tour){
         $query = "UPDATE travel_tour.tours SET name=:name, description=:description, start_date=:startDate, end_date=:endDate, price=:price
         WHERE id=:id";
+        if (isset($tour["image"])){
+            $query = "UPDATE travel_tour.tours SET name=:name, description=:description, start_date=:startDate, end_date=:endDate,image_url=:image, price=:price
+        WHERE id=:id";
+        }
         $statement= $this->connection->prepare($query);
         $statement->bindParam(':name', $tour['name']);
         $statement->bindParam(':description', $tour['description']);
@@ -90,6 +94,9 @@ class TourDao extends BaseDao{
         $statement->bindParam(':endDate', $tour['endDate']);
         $statement->bindParam(':price', $tour['price']);
         $statement->bindParam(':id', $tour['id']);
+        if (isset($tour["image"])){
+            $statement->bindParam(':image', $tour['image']);
+        }
         $statement->execute();
         $query = "DELETE FROM travel_tour.tours_attractions WHERE tour_id=?";
         $statement= $this->connection->prepare($query);

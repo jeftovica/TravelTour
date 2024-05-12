@@ -78,7 +78,6 @@ getTour=()=>{
 reserve=()=>{
   var urlParams = new URLSearchParams(window.location.search);
   let id= urlParams.get('id');
-  let user = JSON.parse(localStorage.getItem("user"));
   $.ajax({
     url: Constants.API_BASE_URL + `tours/reservation`,
     type: 'POST',
@@ -90,7 +89,7 @@ reserve=()=>{
         );
       }
     },
-    data: JSON.stringify({tour_id:id,user_id:user.id}),
+    data: JSON.stringify({tour_id:id}),
     contentType: 'application/json',
     success: function (result) {
       location.reload();

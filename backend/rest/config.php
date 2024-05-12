@@ -12,3 +12,4 @@ define('DB_PASSWORD', 'angela01180');
 define('DB_HOST', '127.0.0.1');
 
 define('JWT_SECRET', ',dpPL,Se%fM-UVQBwf/X0T&B!DF6%}');
+

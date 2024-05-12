@@ -90,10 +90,10 @@ setUsersName = () => {
     url: Constants.API_BASE_URL + 'whoAmI',
     type: "GET",
     beforeSend: function (xhr) {
-      if (localStorage.getItem("user")) {
+      if (Utils.get_from_localstorage("user")) {
         xhr.setRequestHeader(
           "Authentication",
-          localStorage.getItem("user")
+          Utils.get_from_localstorage("user")
         );
       }
     },
@@ -112,10 +112,10 @@ handleVisibilityRole = () => {
     url: Constants.API_BASE_URL + 'whoAmI',
     type: "GET",
     beforeSend: function (xhr) {
-      if (localStorage.getItem("user")) {
+      if (Utils.get_from_localstorage("user")) {
         xhr.setRequestHeader(
           "Authentication",
-          localStorage.getItem("user")
+          Utils.get_from_localstorage("user")
         );
       }
     },

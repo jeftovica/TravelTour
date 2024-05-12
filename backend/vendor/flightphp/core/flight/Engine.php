@@ -382,64 +382,82 @@ class Engine
      * Processes each routes middleware.
      *
      * @param Route $route The route to process the middleware for.
-     * @param string $event_name If this is the before or after method.
+     * @param string $eventName If this is the before or after method.
      */
-    protected function processMiddleware(Route $route, string $event_name): bool
+    protected function processMiddleware(Route $route, string $eventName): bool
     {
-        $at_least_one_middleware_failed = false;
+        $atLeastOneMiddlewareFailed = false;
 
-        $middlewares = $event_name === Dispatcher::FILTER_BEFORE ? $route->middleware : array_reverse($route->middleware);
+		// Process things normally for before, and then in reverse order for after.
+        $middlewares = $eventName === Dispatcher::FILTER_BEFORE 
+			? $route->middleware 
+			: array_reverse($route->middleware);
         $params = $route->params;
 
         foreach ($middlewares as $middleware) {
-            $middleware_object = false;
 
-            if ($event_name === Dispatcher::FILTER_BEFORE) {
-                // can be a callable or a class
-                $middleware_object = (is_callable($middleware) === true
-                    ? $middleware
-                    : (method_exists($middleware, Dispatcher::FILTER_BEFORE) === true
-                        ? [$middleware, Dispatcher::FILTER_BEFORE]
-                        : false
-                    )
-                );
-            } elseif ($event_name === Dispatcher::FILTER_AFTER) {
-                // must be an object. No functions allowed here
-                if (
-                    is_object($middleware) === true
-                    && !($middleware instanceof Closure)
-                    && method_exists($middleware, Dispatcher::FILTER_AFTER) === true
-                ) {
-                    $middleware_object = [$middleware, Dispatcher::FILTER_AFTER];
+			// Assume that nothing is going to be executed for the middleware.
+            $middlewareObject = false;
+
+            // Closure functions can only run on the before event
+            if ($eventName === Dispatcher::FILTER_BEFORE && is_object($middleware) === true && ($middleware instanceof Closure)) {
+                $middlewareObject = $middleware;
+
+            // If the object has already been created, we can just use it if the event name exists.
+            } elseif (is_object($middleware) === true) {
+                $middlewareObject = method_exists($middleware, $eventName) === true ? [ $middleware, $eventName ] : false;
+
+            // If the middleware is a string, we need to create the object and then call the event.
+            } elseif (is_string($middleware) === true && method_exists($middleware, $eventName) === true) {
+                $resolvedClass = null;
+
+                // if there's a container assigned, we should use it to create the object
+                if ($this->dispatcher->mustUseContainer($middleware) === true) {
+                    $resolvedClass = $this->dispatcher->resolveContainerClass($middleware, $params);
+                // otherwise just assume it's a plain jane class, so inject the engine
+                // just like in Dispatcher::invokeCallable()
+                } elseif (class_exists($middleware) === true) {
+                    $resolvedClass = new $middleware($this);
+                }
+
+                // If something was resolved, create an array callable that will be passed in later.
+                if ($resolvedClass !== null) {
+                    $middlewareObject = [ $resolvedClass, $eventName ];
                 }
             }
 
-            if ($middleware_object === false) {
+			// If nothing was resolved, go to the next thing
+            if ($middlewareObject === false) {
                 continue;
             }
 
-            $use_v3_output_buffering =
+			// This is the way that v3 handles output buffering (which captures output correctly)
+            $useV3OutputBuffering =
                 $this->response()->v2_output_buffering === false &&
                 $route->is_streamed === false;
 
-            if ($use_v3_output_buffering === true) {
+            if ($useV3OutputBuffering === true) {
                 ob_start();
             }
 
-            // It's assumed if you don't declare before, that it will be assumed as the before method
-            $middleware_result = $middleware_object($params);
+            // Here is the array callable $middlewareObject that we created earlier.
+			// It looks bizarre but it's really calling [ $class, $method ]($params)
+			// Which loosely translates to $class->$method($params)
+            $middlewareResult = $middlewareObject($params);
 
-            if ($use_v3_output_buffering === true) {
+            if ($useV3OutputBuffering === true) {
                 $this->response()->write(ob_get_clean());
             }
 
-            if ($middleware_result === false) {
-                $at_least_one_middleware_failed = true;
+			// If you return false in your middleware, it will halt the request
+			// and throw a 403 forbidden error by default.
+            if ($middlewareResult === false) {
+                $atLeastOneMiddlewareFailed = true;
                 break;
             }
         }
 
-        return $at_least_one_middleware_failed;
+        return $atLeastOneMiddlewareFailed;
     }
 
     ////////////////////////
@@ -475,7 +493,7 @@ class Engine
         }
 
         // Route the request
-        $failed_middleware_check = false;
+        $failedMiddlewareCheck = false;
 
         while ($route = $router->route($request)) {
             $params = array_values($route->params);
@@ -487,13 +505,16 @@ class Engine
 
             // If this route is to be streamed, we need to output the headers now
             if ($route->is_streamed === true) {
-                $response->status($route->streamed_headers['status']);
-                unset($route->streamed_headers['status']);
+                if (count($route->streamed_headers) > 0) {
+                    $response->status($route->streamed_headers['status'] ?? 200);
+                    unset($route->streamed_headers['status']);
+                    foreach ($route->streamed_headers as $header => $value) {
+                        $response->header($header, $value);
+                    }
+                }
+
                 $response->header('X-Accel-Buffering', 'no');
                 $response->header('Connection', 'close');
-                foreach ($route->streamed_headers as $header => $value) {
-                    $response->header($header, $value);
-                }
 
                 // We obviously don't know the content length right now. This must be false.
                 $response->content_length = false;
@@ -503,18 +524,18 @@ class Engine
 
             // Run any before middlewares
             if (count($route->middleware) > 0) {
-                $at_least_one_middleware_failed = $this->processMiddleware($route, 'before');
-                if ($at_least_one_middleware_failed === true) {
-                    $failed_middleware_check = true;
+                $atLeastOneMiddlewareFailed = $this->processMiddleware($route, 'before');
+                if ($atLeastOneMiddlewareFailed === true) {
+                    $failedMiddlewareCheck = true;
                     break;
                 }
             }
 
-            $use_v3_output_buffering =
+            $useV3OutputBuffering =
                 $this->response()->v2_output_buffering === false &&
                 $route->is_streamed === false;
 
-            if ($use_v3_output_buffering === true) {
+            if ($useV3OutputBuffering === true) {
                 ob_start();
             }
 
@@ -524,17 +545,17 @@ class Engine
                 $params
             );
 
-            if ($use_v3_output_buffering === true) {
+            if ($useV3OutputBuffering === true) {
                 $response->write(ob_get_clean());
             }
 
             // Run any before middlewares
             if (count($route->middleware) > 0) {
                 // process the middleware in reverse order now
-                $at_least_one_middleware_failed = $this->processMiddleware($route, 'after');
+                $atLeastOneMiddlewareFailed = $this->processMiddleware($route, 'after');
 
-                if ($at_least_one_middleware_failed === true) {
-                    $failed_middleware_check = true;
+                if ($atLeastOneMiddlewareFailed === true) {
+                    $failedMiddlewareCheck = true;
                     break;
                 }
             }
@@ -555,7 +576,7 @@ class Engine
             $response->clearBody();
         }
 
-        if ($failed_middleware_check === true) {
+        if ($failedMiddlewareCheck === true) {
             $this->halt(403, 'Forbidden', empty(getenv('PHPUNIT_TEST')));
         } elseif ($dispatched === false) {
             $this->notFound();
@@ -649,10 +670,12 @@ class Engine
      * @param string $pattern URL pattern to match
      * @param callable|string $callback Callback function or string class->method
      * @param bool $pass_route Pass the matching route object to the callback
+	 * 
+	 * @return Route
      */
-    public function _post(string $pattern, $callback, bool $pass_route = false, string $route_alias = ''): void
+    public function _post(string $pattern, $callback, bool $pass_route = false, string $route_alias = ''): Route
     {
-        $this->router()->map('POST ' . $pattern, $callback, $pass_route, $route_alias);
+        return $this->router()->map('POST ' . $pattern, $callback, $pass_route, $route_alias);
     }
 
     /**
@@ -661,10 +684,12 @@ class Engine
      * @param string $pattern URL pattern to match
      * @param callable|string $callback Callback function or string class->method
      * @param bool $pass_route Pass the matching route object to the callback
+	 * 
+	 * @return Route
      */
-    public function _put(string $pattern, $callback, bool $pass_route = false, string $route_alias = ''): void
+    public function _put(string $pattern, $callback, bool $pass_route = false, string $route_alias = ''): Route
     {
-        $this->router()->map('PUT ' . $pattern, $callback, $pass_route, $route_alias);
+        return $this->router()->map('PUT ' . $pattern, $callback, $pass_route, $route_alias);
     }
 
     /**
@@ -673,10 +698,12 @@ class Engine
      * @param string $pattern URL pattern to match
      * @param callable|string $callback Callback function or string class->method
      * @param bool $pass_route Pass the matching route object to the callback
+	 * 
+	 * @return Route
      */
-    public function _patch(string $pattern, $callback, bool $pass_route = false, string $route_alias = ''): void
+    public function _patch(string $pattern, $callback, bool $pass_route = false, string $route_alias = ''): Route
     {
-        $this->router()->map('PATCH ' . $pattern, $callback, $pass_route, $route_alias);
+    	return $this->router()->map('PATCH ' . $pattern, $callback, $pass_route, $route_alias);
     }
 
     /**
@@ -685,10 +712,12 @@ class Engine
      * @param string $pattern URL pattern to match
      * @param callable|string $callback Callback function or string class->method
      * @param bool $pass_route Pass the matching route object to the callback
+	 * 
+	 * @return Route
      */
-    public function _delete(string $pattern, $callback, bool $pass_route = false, string $route_alias = ''): void
+    public function _delete(string $pattern, $callback, bool $pass_route = false, string $route_alias = ''): Route
     {
-        $this->router()->map('DELETE ' . $pattern, $callback, $pass_route, $route_alias);
+        return $this->router()->map('DELETE ' . $pattern, $callback, $pass_route, $route_alias);
     }
 
     /**

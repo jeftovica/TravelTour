@@ -2,8 +2,8 @@ $(document).ready(function () {
   getTours();
 });
 getTours = () => {
-  let id= JSON.parse(localStorage.getItem('user')).id
-  $.ajax({url: Constants.API_BASE_URL + `tours/user/${id}`,
+
+  $.ajax({url: Constants.API_BASE_URL + `tours/my`,
   type: "GET",
   beforeSend: function (xhr) {
     if (Utils.get_from_localstorage("user")) {
