@@ -94,14 +94,15 @@ Flight::route('GET /attractions/one/@attraction_id', function($attraction_id){
      *      ),
      *      @OA\RequestBody(
      *          description="Attraction data payload",
-     *          @OA\JsonContent(
-     *              required={"name","description","image"},
-     *              @OA\Property(property="id", type="string", example="1", description="Attraction ID"),
-     *              @OA\Property(property="name", type="string", example="Attraction 1", description="Attraction name"),
-     *              @OA\Property(property="description", type="string", example="Description 1", description="Description of attraction"),
-     *              @OA\Property(property="image", type="string", example="https://example.com/updated_image.jpg", description="Image of attraction")
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *              @OA\Schema(
+     *              @OA\Property(property="name", type="string", example="Attraction Name", description="Attraction name"),
+     *              @OA\Property(property="description", type="string", example="Description", description="Description of attraction"),
+     *              @OA\Property(property="image", type="string",format="binary", description="Image of attraction")
      *          )
      *      )
+     * )
      * )
      */
 Flight::route('POST /attractions/add', function(){
@@ -206,10 +207,14 @@ Flight::route('DELETE /attractions/delete/@attraction_id', function($attraction_
  *      ),
  *      @OA\RequestBody(
  *          description="Updated attraction data payload",
- *          @OA\JsonContent(
+ *          @OA\MediaType(
+ *              mediaType="multipart/form-data",
+ *              @OA\Schema(
+ *              @OA\Property(property="id", type="string", example="1", description="Attraction ID"),
  *              @OA\Property(property="name", type="string", example="Updated Attraction Name", description="Updated attraction name"),
  *              @OA\Property(property="description", type="string", example="Updated Description", description="Updated description of attraction"),
- *              @OA\Property(property="image", type="string", example="https://example.com/updated_image.jpg", description="Updated image of attraction")
+ *              @OA\Property(property="image", type="string",format="binary", description="Updated image of attraction")
+ *              )
  *          )
  *      )
  * )

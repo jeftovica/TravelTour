@@ -92,26 +92,26 @@ Flight::route('POST /tours/reservation', function(){
      *      security={
      *          {"ApiKey": {}}   
      *      },
-     *      security={
-     *          {"ApiKey": {}}   
-     *      },
      *      @OA\Response(
      *           response=200,
      *           description="Tour data, or exception if tour is not added properly"
      *      ),
      *      @OA\RequestBody(
      *          description="Tour data payload",
-     *          @OA\JsonContent(
-     *              required={"name","description","image", "startDate", "endDate", "price"},
-     *              @OA\Property(property="id", type="string", example="1", description="Tour ID"),
-     *              @OA\Property(property="name", type="string", example="Tour 1", description="Tour name"),
-     *              @OA\Property(property="description", type="string", example="Description 1", description="Description of tour"),
-     *              @OA\Property(property="image", type="string", example="https://example.com/updated_image.jpg", description="Image of tour"),
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *              @OA\Schema(
+     *              @OA\Property(property="name", type="string", example="Updated Tour Name", description="Updated tour name"),
+     *              @OA\Property(property="description", type="string", example="Updated Description", description="Updated description of tour"),
+     *              @OA\Property(property="image", type="string",format="binary", description="Updated image of tour"),
      *              @OA\Property(property="startDate", type="string", example="2024-04-04", description="Tour start date"),
      *              @OA\Property(property="endDate", type="string", example="2024-05-04", description="Tour end date"),
      *              @OA\Property(property="price", type="string", example="123", description="Price of tour"),
+     *              @OA\Property(property="attractions", type="string", example="", description="Tour Attraction IDs")
+     *              
      *          )
      *      )
+     * )
      * )
      */
 Flight::route('POST /tours/add', function(){
@@ -226,17 +226,21 @@ Flight::route('DELETE /tours/delete/@tour_id', function($tour_id){
  *           description="Tour not found"
  *      ),
  *      @OA\RequestBody(
- *          description="Updated attraction data payload",
- *          @OA\JsonContent(
+ *          description="Updated tour data payload",
+ *          @OA\MediaType(
+ *              mediaType="multipart/form-data",
+ *              @OA\Schema(
  *              @OA\Property(property="id", type="string", example="1", description="Tour ID"),
- *              @OA\Property(property="name", type="string", example="Tour 1", description="Tour name"),
- *              @OA\Property(property="description", type="string", example="Description 1", description="Description of tour"),
- *              @OA\Property(property="image", type="string", example="https://example.com/updated_image.jpg", description="Image of tour"),
+ *              @OA\Property(property="name", type="string", example="Updated Tour Name", description="Updated tour name"),
+ *              @OA\Property(property="description", type="string", example="Updated Description", description="Updated description of tour"),
+ *              @OA\Property(property="image", type="string",format="binary", description="Updated image of tour"),
  *              @OA\Property(property="startDate", type="string", example="2024-04-04", description="Tour start date"),
  *              @OA\Property(property="endDate", type="string", example="2024-05-04", description="Tour end date"),
  *              @OA\Property(property="price", type="string", example="123", description="Price of tour"),
+ *              @OA\Property(property="attractions", type="string", example="", description="Tour Attraction IDs")            
  *          )
  *      )
+ * )
  * )
  */
 Flight::route('POST /tours/edit', function(){
