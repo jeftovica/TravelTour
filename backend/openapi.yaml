@@ -1,0 +1,385 @@
+openapi: 3.0.0
+info:
+  title: API
+  description: 'Web programming API'
+  contact:
+    name: 'Becir Isakovic'
+    email: becir.isakovic@ibu.edu.ba
+  version: '1.0'
+paths:
+  /attractions:
+    get:
+      tags:
+        - attractions
+      summary: 'Get all attractions'
+      responses:
+        '200':
+          description: 'Array of all attractions in the databases'
+  '/attractions/one/{attraction_id}':
+    get:
+      tags:
+        - attractions
+      summary: 'Get attraction by id'
+      parameters:
+        -
+          name: attraction_id
+          in: path
+          description: 'ID of the attraction'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'Attraction data, or false if attraction does not exist'
+  /attractions/add:
+    post:
+      tags:
+        - attractions
+      summary: 'Add attraction data to the database'
+      requestBody:
+        description: 'Attraction data payload'
+        content:
+          application/json:
+            schema:
+              required:
+                - name
+                - description
+                - image
+              properties:
+                id:
+                  description: 'Attraction ID'
+                  type: string
+                  example: '1'
+                name:
+                  description: 'Attraction name'
+                  type: string
+                  example: 'Attraction 1'
+                description:
+                  description: 'Description of attraction'
+                  type: string
+                  example: 'Description 1'
+                image:
+                  description: 'Image of attraction'
+                  type: string
+                  example: 'https://example.com/updated_image.jpg'
+              type: object
+      responses:
+        '200':
+          description: 'Attraction data, or exception if attraction is not added properly'
+  '/attractions/delete/{attraction_id}':
+    delete:
+      tags:
+        - attractions
+      summary: 'Delete attraction by id'
+      parameters:
+        -
+          name: attraction_id
+          in: path
+          description: 'ID of the attraction'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'Deleted attraction data or 500 status code exception otherwise'
+  /attractions/edit:
+    post:
+      tags:
+        - attractions
+      summary: 'Edit existing attraction data in the database'
+      requestBody:
+        description: 'Updated attraction data payload'
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  description: 'Updated attraction name'
+                  type: string
+                  example: 'Updated Attraction Name'
+                description:
+                  description: 'Updated description of attraction'
+                  type: string
+                  example: 'Updated Description'
+                image:
+                  description: 'Updated image of attraction'
+                  type: string
+                  example: 'https://example.com/updated_image.jpg'
+              type: object
+      responses:
+        '200':
+          description: 'Attraction data updated successfully'
+        '404':
+          description: 'Attraction not found'
+  /tours:
+    get:
+      tags:
+        - tours
+      summary: 'Get all tours'
+      responses:
+        '200':
+          description: 'Array of all tours in the databases'
+  /tours/reservation:
+    post:
+      tags:
+        - tours
+      summary: 'Add reservation data to the database'
+      requestBody:
+        description: 'Reservation data payload'
+        content:
+          application/json:
+            schema:
+              required:
+                - tour_id
+              properties:
+                id:
+                  description: 'Tour ID'
+                  type: string
+                  example: '1'
+              type: object
+      responses:
+        '200':
+          description: 'Reservation data, or exception if reservation is not added properly'
+  /tours/add:
+    post:
+      tags:
+        - tours
+      summary: 'Add tour data to the database'
+      requestBody:
+        description: 'Tour data payload'
+        content:
+          application/json:
+            schema:
+              required:
+                - name
+                - description
+                - image
+                - startDate
+                - endDate
+                - price
+              properties:
+                id:
+                  description: 'Tour ID'
+                  type: string
+                  example: '1'
+                name:
+                  description: 'Tour name'
+                  type: string
+                  example: 'Tour 1'
+                description:
+                  description: 'Description of tour'
+                  type: string
+                  example: 'Description 1'
+                image:
+                  description: 'Image of tour'
+                  type: string
+                  example: 'https://example.com/updated_image.jpg'
+                startDate:
+                  description: 'Tour start date'
+                  type: string
+                  example: '2024-04-04'
+                endDate:
+                  description: 'Tour end date'
+                  type: string
+                  example: '2024-05-04'
+                price:
+                  description: 'Price of tour'
+                  type: string
+                  example: '123'
+              type: object
+      responses:
+        '200':
+          description: 'Tour data, or exception if tour is not added properly'
+  '/tours/delete/{tour_id}':
+    delete:
+      tags:
+        - tours
+      summary: 'Delete tour by id'
+      parameters:
+        -
+          name: tour_id
+          in: path
+          description: 'ID of the tour'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'Deleted tour data or 500 status code exception otherwise'
+  /tours/edit:
+    post:
+      tags:
+        - tours
+      summary: 'Edit existing tour data in the database'
+      requestBody:
+        description: 'Updated attraction data payload'
+        content:
+          application/json:
+            schema:
+              properties:
+                id:
+                  description: 'Tour ID'
+                  type: string
+                  example: '1'
+                name:
+                  description: 'Tour name'
+                  type: string
+                  example: 'Tour 1'
+                description:
+                  description: 'Description of tour'
+                  type: string
+                  example: 'Description 1'
+                image:
+                  description: 'Image of tour'
+                  type: string
+                  example: 'https://example.com/updated_image.jpg'
+                startDate:
+                  description: 'Tour start date'
+                  type: string
+                  example: '2024-04-04'
+                endDate:
+                  description: 'Tour end date'
+                  type: string
+                  example: '2024-05-04'
+                price:
+                  description: 'Price of tour'
+                  type: string
+                  example: '123'
+              type: object
+      responses:
+        '200':
+          description: 'Tour data updated successfully'
+        '404':
+          description: 'Tour not found'
+  /tours/my:
+    get:
+      tags:
+        - tours
+      summary: 'Get users tours'
+      responses:
+        '200':
+          description: 'Tours data, or false if tour does not exist'
+  /tours/popular:
+    get:
+      tags:
+        - tours
+      summary: 'Get popular tours'
+      responses:
+        '200':
+          description: 'Tours data, or false if tour does not exist'
+  '/tours/one/{tour_id}':
+    get:
+      tags:
+        - tours
+      summary: 'Get tour'
+      parameters:
+        -
+          name: tour_id
+          in: path
+          description: 'ID of the tour'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'Tour data, or false if tour does not exist'
+  /users:
+    post:
+      tags:
+        - users
+      summary: 'Login to system using email and password'
+      requestBody:
+        description: Credentials
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                emaill:
+                  description: 'User email address'
+                  type: string
+                  example: example@example.com
+                password:
+                  description: 'User password'
+                  type: string
+                  example: some_password
+              type: object
+      responses:
+        '200':
+          description: 'User data and JWT'
+  users/add:
+    post:
+      tags:
+        - users
+      summary: 'Add user data to the database'
+      requestBody:
+        description: 'User data payload'
+        content:
+          application/json:
+            schema:
+              required:
+                - name
+                - surname
+                - phone
+                - email
+                - password
+              properties:
+                id:
+                  description: 'User ID'
+                  type: string
+                  example: '1'
+                name:
+                  description: 'Users name'
+                  type: string
+                  example: 'User 1'
+                surname:
+                  description: 'Users surname'
+                  type: string
+                  example: 'Surname 1'
+                phone:
+                  description: 'Users number'
+                  type: string
+                  example: '+38765432789'
+                email:
+                  description: 'Users email'
+                  type: string
+                  example: example@example.com
+                password:
+                  description: 'Users password'
+                  type: string
+                  example: some_password
+              type: object
+      responses:
+        '200':
+          description: 'User data, or exception if user is not added properly'
+  /logout:
+    post:
+      tags:
+        - users
+      summary: 'Logout from the system'
+      responses:
+        '200':
+          description: 'Success response or exception if unable to verify jwt token'
+      security:
+        -
+          ApiKey: []
+  /whoAmI:
+    get:
+      tags:
+        - users
+      summary: 'Get user role'
+      responses:
+        '200':
+          description: 'User role'
+components:
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      name: Authentication
+      in: header

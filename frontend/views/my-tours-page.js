@@ -2,10 +2,20 @@ $(document).ready(function () {
   getTours();
 });
 getTours = () => {
-  let id= JSON.parse(localStorage.getItem('user')).id
-  $.get(Constants.API_BASE_URL + `get_my_tours.php?id=${id}`, (response) => {
 
-    let myTours = JSON.parse(response).data
+  $.ajax({url: Constants.API_BASE_URL + `tours/my`,
+  type: "GET",
+  beforeSend: function (xhr) {
+    if (Utils.get_from_localstorage("user")) {
+      xhr.setRequestHeader(
+        "Authentication",
+        Utils.get_from_localstorage("user")
+      );
+    }
+  },
+  success: (response) => {
+
+    let myTours = response.data
 
 
     let searchText = document.querySelector('#search-my-tour').value;
@@ -43,5 +53,5 @@ getTours = () => {
           </div>`;
     });
     $("#my-tours-container").html(toursHtml);
-  });
+  }});
 };

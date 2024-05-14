@@ -67,43 +67,88 @@ handleChangePage = () => {
 }
 
 logout = () => {
-  localStorage.removeItem("user");
-  window.location.hash = "#login-page";
+  $.ajax({
+    url: Constants.API_BASE_URL + 'logout',
+    type: "POST",
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
+    success: (response) => {
+      localStorage.removeItem("user");
+      window.location.hash = "#login-page";
+    }
+  })
+
 }
 setUsersName = () => {
-  let user = JSON.parse(localStorage.getItem("user"));
-  if (user)
-    $("#current-user").text(user.name + " " + user.surname);
+  $.ajax({
+    url: Constants.API_BASE_URL + 'whoAmI',
+    type: "GET",
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
+    success: (response) => {
+      let user = response.data;
+      if (user)
+        $("#current-user").text(user.name + " " + user.surname);
+    }
+  })
+
 }
 
 handleVisibilityRole = () => {
-  let user = JSON.parse(localStorage.getItem("user"));
-  if (user == null) {
-    if (window.location.hash != "#login-page" && window.location.hash != "#register-page")
-      window.location.hash = "#login-page";
-  }
-  if (user) {
-    if (user.role === "admin") {
-      let adminElements = document.querySelectorAll(".admin-only");
-      adminElements.forEach((element) => {
-        element.style.display = "block";
-      })
-      let userElements = document.querySelectorAll(".user-only");
-      userElements.forEach((element) => {
-        element.style.display = "none";
-      })
+
+  $.ajax({
+    url: Constants.API_BASE_URL + 'whoAmI',
+    type: "GET",
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
+    success: (response) => {
+      let user = response.data;
+      if (user == null) {
+        if (window.location.hash != "#login-page" && window.location.hash != "#register-page")
+          window.location.hash = "#login-page";
+      }
+      if (user) {
+        if (user.role === "admin") {
+          let adminElements = document.querySelectorAll(".admin-only");
+          adminElements.forEach((element) => {
+            element.style.display = "block";
+          })
+          let userElements = document.querySelectorAll(".user-only");
+          userElements.forEach((element) => {
+            element.style.display = "none";
+          })
+        }
+        if (user.role === "user") {
+          let adminElements = document.querySelectorAll(".admin-only");
+          adminElements.forEach((element) => {
+            element.style.display = "none";
+          })
+          let userElements = document.querySelectorAll(".user-only");
+          userElements.forEach((element) => {
+            element.style.display = "block";
+          })
+        }
+      }
     }
-    if (user.role === "user") {
-      let adminElements = document.querySelectorAll(".admin-only");
-      adminElements.forEach((element) => {
-        element.style.display = "none";
-      })
-      let userElements = document.querySelectorAll(".user-only");
-      userElements.forEach((element) => {
-        element.style.display = "block";
-      })
-    }
-  }
+  })
 }
 
 $(window).on('hashchange', function (e) {

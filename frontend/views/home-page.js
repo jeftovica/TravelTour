@@ -5,8 +5,18 @@ $(document).ready(function(){
     handleVisibilityRole();
 });
 getTours=()=>{
-    $.get(Constants.API_BASE_URL + 'get_popular_tours.php',(response)=>{
-        const popularTours = JSON.parse(response).data
+    $.ajax({url: Constants.API_BASE_URL + 'tours/popular',
+    type: "GET",
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
+    success: (response)=>{
+        const popularTours = response.data
         let toursHtml='';
         let carouselHtml='';
         let isFirst=true;
@@ -56,7 +66,7 @@ getTours=()=>{
         });
         $("#popular-tours-container").html(toursHtml);
         $("#carouselExampleCaptions .carousel-inner").html(carouselHtml);
-    });
+    }});
 };
 
 

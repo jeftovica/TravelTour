@@ -22,3 +22,5 @@
 
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,web
+
+backend/vendor

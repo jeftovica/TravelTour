@@ -2,7 +2,7 @@
 <div class="container">
   <div class="responsive-grid-layout">
     <div class="col">
-      <form class="d-flex w-25 search-tours-form " role="search">
+      <form method="post" class="d-flex w-25 search-tours-form " role="search">
         <input class="form-control me-2" id="search-tour" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success search-tour-button" type="submit" onclick="getTours()">Search</button>
       </form>
@@ -15,7 +15,7 @@
 
       <div class="modal fade" id="tourModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <form id="add-tour-form" onsubmit="sendTour()">
+          <form method="post" id="add-tour-form" onsubmit="sendTour()">
             <div class="modal-content">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Tour Creation</h1>
@@ -44,7 +44,7 @@
                     <span class="input-group-text">BAM</span>
                   </div>
                   <div class="mb-3 w-75">
-                    <input class="form-control" type="file" id="formFile" name="image" required accept="image/*">
+                    <input class="form-control" type="file" id="formFile" name="image" accept="image/*">
                   </div>
                   <div id="choice-div" class="row d-flex justify-content-center w-75">
                     <select id="multiple-select" class="px-0 w-100 js-example-basic-multiple" name="states[]" multiple="multiple">

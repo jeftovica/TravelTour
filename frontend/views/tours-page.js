@@ -16,17 +16,27 @@ let editId = -1;
 let isEditTour = false;
 let allAttractons = []
 getTours = () => {
-  $.get(Constants.API_BASE_URL + 'get_all_tours.php', (response) => {
-    response = JSON.parse(response)
-    let searchText = document.querySelector('#search-tour').value;
-    if (searchText != "") {
-      response.data = response.data.filter(function (tour) {
-        return tour.name.toLowerCase().includes(searchText.toLowerCase());
-      });
-    }
-    let toursHtml = '';
-    response.data.map(tour => {
-      toursHtml += `<div class="card px-0" style="width: 18rem; height: 20rem;">
+  $.ajax({
+    url: Constants.API_BASE_URL + 'tours',
+    type: "GET",
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
+    success: (response) => {
+      let searchText = document.querySelector('#search-tour').value;
+      if (searchText != "") {
+        response.data = response.data.filter(function (tour) {
+          return tour.name.toLowerCase().includes(searchText.toLowerCase());
+        });
+      }
+      let toursHtml = '';
+      response.data.map(tour => {
+        toursHtml += `<div class="card px-0" style="width: 18rem; height: 20rem;">
             <img class="card-img-top" src="${tour.image_url}" alt="Card image cap">
             <div class="card-body">
               <div class="container w-100">
@@ -55,9 +65,10 @@ getTours = () => {
               </div>
             </div>
           </div>`;
-    });
-    $("#tours-container").html(toursHtml);
-    handleVisibilityRole();
+      });
+      $("#tours-container").html(toursHtml);
+      handleVisibilityRole();
+    }
   });
 };
 setDeletionId = (id) => {
@@ -84,12 +95,33 @@ editTour = () => {
   let date1 = document.querySelector("#formDate1").value;
   let date2 = document.querySelector("#formDate2").value;
   let bam = document.querySelector("#valute").value;
-  let editedTour = {id:editId, "name": name, "description": description, "startDate": date1, "endDate": date2, "price": bam, "attractions": attractions }
+  let image = document.querySelector("#formFile").files[0];
+  let formData = new FormData();
+  formData.append("name", name);
+  formData.append("id", editId);
+  formData.append("description", description);
+  formData.append("startDate", date1);
+  formData.append("endDate", date2);
+  formData.append("price", bam);
+  formData.append("attractions", JSON.stringify(attractions));
+  if (image) {
+    formData.append("image", image);
+  }
   $.ajax({
-    url: Constants.API_BASE_URL + `edit_tour.php`,
-    type: 'PUT',
-    data: JSON.stringify(editedTour),
-    contentType: 'application/json',
+    url: Constants.API_BASE_URL + `tours/edit`,
+    data: formData,
+    cache: false,
+    contentType: false,
+    processData: false,
+    type: "POST",
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
     success: function (result) {
       $("#add-tour-form").get(0).reset();
       location.reload();
@@ -98,34 +130,58 @@ editTour = () => {
 }
 setEditData = (id) => {
   isEditTour = true;
-  $.get(Constants.API_BASE_URL + `get_tour.php?id=${id}`, (response) => {
-    response = JSON.parse(response).data;
-    document.querySelector("#name").value = response.name;
-    document.querySelector('#description').value = response.description;
-    document.querySelector("#formDate1").value = response.start_date;
-    document.querySelector("#formDate2").value = response.end_date;
-    document.querySelector("#valute").value = response.price;
-    editId = id;
-    let selectedAttractions = [];
-    response.attractions.forEach((attr) => {
+  $.ajax({
+    url: Constants.API_BASE_URL + `tours/one/${id}`,
+    type: "GET",
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
+    success: (response) => {
+      console.log(response);
+      response = response.data;
+      document.querySelector("#name").value = response.name;
+      document.querySelector('#description').value = response.description;
+      document.querySelector("#formDate1").value = response.start_date;
+      document.querySelector("#formDate2").value = response.end_date;
+      document.querySelector("#valute").value = response.price;
+      editId = id;
+      let selectedAttractions = [];
+      response.attractions.forEach((attr) => {
         selectedAttractions.push(attr.id)
-    })
-    console.log(selectedAttractions)
-    $('#multiple-select').val(selectedAttractions).change()
+      })
+      console.log(selectedAttractions)
+      $('#multiple-select').val(selectedAttractions).change()
+    }
   })
 }
 
 getAttractions = () => {
-  $.get(Constants.API_BASE_URL + 'get_all_attractions.php', (response) => {
-    response = JSON.parse(response)
-    allAttractons = response.data;
-    let attractionsHtml = '';
-    response.data.map(attraction => {
-      attractionsHtml += `<option value="${attraction.id}">${attraction.name}</option>`;
-    });
-    console.log(response);
-    $("#multiple-select").html(attractionsHtml);
-    handleVisibilityRole();
+  $.ajax({
+    url: Constants.API_BASE_URL + 'attractions',
+    type: "GET",
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
+    success: (response) => {
+      allAttractons = response.data;
+      let attractionsHtml = '';
+      response.data.map(attraction => {
+        attractionsHtml += `<option value="${attraction.id}">${attraction.name}</option>`;
+      });
+      console.log(response);
+      $("#multiple-select").html(attractionsHtml);
+      handleVisibilityRole();
+    }
   });
 };
 
@@ -134,13 +190,36 @@ addTour = () => {
   $('#multiple-select').select2('data').forEach((val) => { attractions.push(val['id']) })
   let name = document.querySelector("#name").value;
   let description = document.querySelector('#description').value;
-  let image = './assets/1.jpg';
+  let image = document.querySelector("#formFile").files[0];
   let date1 = document.querySelector("#formDate1").value;
   let date2 = document.querySelector("#formDate2").value;
   let bam = document.querySelector("#valute").value;
   let newTour = { "name": name, "description": description, "image": image, "startDate": date1, "endDate": date2, "price": bam, "attractions": attractions }
-  $.post({
-    url: Constants.API_BASE_URL + 'add_tour.php', data: JSON.stringify(newTour), contentType: 'application/json', success: (response) => {
+  let formData = new FormData();
+  formData.append("name", name);
+  formData.append("description", description);
+  formData.append("image", image);
+  formData.append("startDate", date1);
+  formData.append("endDate", date2);
+  formData.append("price", bam);
+  formData.append("attractions", JSON.stringify(attractions));
+
+  $.ajax({
+    url: Constants.API_BASE_URL + 'tours/add',
+    data: formData,
+    cache: false,
+    contentType: false,
+    processData: false,
+    type: "POST",
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
+    success: (response) => {
       $("#add-tour-form").get(0).reset();
       alert("Adding successful!");
       location.reload();
@@ -149,8 +228,16 @@ addTour = () => {
 }
 deleteTour = () => {
   $.ajax({
-    url: Constants.API_BASE_URL + `delete_tour.php?id=${deletionId}`,
+    url: Constants.API_BASE_URL + `tours/delete/${deletionId}`,
     type: 'DELETE',
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
     success: function (result) {
       $('#tourModalDelete').modal('hide');
       location.reload();
@@ -158,6 +245,6 @@ deleteTour = () => {
   });
 }
 
-cancelAction=()=>{
+cancelAction = () => {
   $("#add-tour-form").get(0).reset();
 }

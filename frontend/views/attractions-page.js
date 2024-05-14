@@ -3,12 +3,21 @@ $(document).ready(function () {
   handleVisibilityRole();
   $("#add-attraction-form").get(0).reset();
 });
-let deletionId = -1;
+let deletionIdAttraction = -1;
 let editId=-1;
 let isEditAttraction=false;
 getAttractions = () => {
-  $.get(Constants.API_BASE_URL + 'get_all_attractions.php', (response) => {
-    response = JSON.parse(response)
+  $.ajax({url: Constants.API_BASE_URL + 'attractions',
+  type: "GET",
+  beforeSend: function (xhr) {
+    if (Utils.get_from_localstorage("user")) {
+      xhr.setRequestHeader(
+        "Authentication",
+        Utils.get_from_localstorage("user")
+      );
+    }
+  },
+  success: (response) => {
     let searchText = document.querySelector('#search-attraction').value;
     if (searchText != "") {
       response.data = response.data.filter(function (attraction) {
@@ -41,10 +50,10 @@ getAttractions = () => {
     });
     $("#attractions-container").html(attractionsHtml);
     handleVisibilityRole();
-  });
+  }});
 };
 setDeletionId = (id) => {
-  deletionId = id;
+  deletionIdAttraction = id;
 }
 setAddAttraction=()=>{
   isEditAttraction=false;
@@ -68,10 +77,27 @@ setEditData = (id,name,description) => {
 addAttraction = () => {
   let name = document.querySelector("#name").value;
   let description = document.querySelector('#description').value;
-  let image = document.querySelector("#formFile").value;
-  let newAttraction = { name: name, description: description, image: "assets/1.jpg" }
-  $.post({
-    url: Constants.API_BASE_URL + 'add_attraction.php', data: JSON.stringify(newAttraction), contentType: 'application/json', success: (response) => {
+  let image = document.querySelector("#formFile").files[0];
+  console.log(image);
+  const formData = new FormData();
+  formData.append("name",name);
+  formData.append("description",description);
+  formData.append("image",image);
+  $.ajax({
+    url: Constants.API_BASE_URL + 'attractions/add', data: formData,
+    cache: false,
+    contentType: false,
+    processData: false,
+    type: "POST",
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
+    success: (response) => {
       $("#add-attraction-form").get(0).reset();
       alert("Adding successful!");
       location.reload();
@@ -80,8 +106,16 @@ addAttraction = () => {
 }
 deleteAttraction = () => {
   $.ajax({
-    url: Constants.API_BASE_URL + `delete_attraction.php?id=${deletionId}`,
+    url: Constants.API_BASE_URL + `attractions/delete/${deletionIdAttraction}`,
     type: 'DELETE',
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
     success: function (result) {
       $('#attractionModalDelete').modal('hide');
       location.reload();
@@ -95,12 +129,28 @@ cancelAction=()=>{
 editAttraction = () => {
   let name = document.querySelector("#name").value;
   let description = document.querySelector('#description').value;
-  let editedAttraction = { id:editId,name: name, description: description}
+  let image = document.querySelector("#formFile").files[0];
+  let formData= new FormData();
+  formData.append("name",name);
+  formData.append("id",editId);
+  formData.append("description",description);
+  if (image)
+    formData.append("image",image);
   $.ajax({
-    url: Constants.API_BASE_URL + `edit_attraction.php`,
-    type: 'PUT',
-    data: JSON.stringify(editedAttraction),
-    contentType: 'application/json',
+    url: Constants.API_BASE_URL + `attractions/edit`,
+    type: 'POST',
+    beforeSend: function (xhr) {
+      if (Utils.get_from_localstorage("user")) {
+        xhr.setRequestHeader(
+          "Authentication",
+          Utils.get_from_localstorage("user")
+        );
+      }
+    },
+    cache: false,
+    contentType: false,
+    processData: false,
+    data:formData,
     success: function (result) {
       $("#add-attraction-form").get(0).reset();
       location.reload();
