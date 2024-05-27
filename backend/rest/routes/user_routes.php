@@ -104,7 +104,6 @@ Flight::route('POST /users/add', function(){
     Flight::json(['message'=>'You have successfully added user', 'data'=> $user]);
 });
 
-
 /**
      * @OA\Post(
      *      path="/logout",
@@ -120,20 +119,9 @@ Flight::route('POST /users/add', function(){
      * )
      */
 Flight::route('POST /logout', function() {
-    try {
-        $token = Flight::request()->getHeader("Authentication");
-        if(!$token)
-            Flight::halt(401, "Missing authentication header");
-
-        $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
-
-        Flight::json([
-            'jwt_decoded' => $decoded_token,
-            'user' => $decoded_token->user
-        ]);
-    } catch (\Exception $e) {
-        Flight::halt(401, $e->getMessage());
-    }
+    Flight::json([
+        'user' => Flight::get("user"),
+    ]);
 });
 
 /**
@@ -152,15 +140,5 @@ Flight::route('POST /logout', function() {
      */
 Flight::route('GET /whoAmI', function(){
 
-    try {
-        $token = Flight::request()->getHeader("Authentication");
-        if(!$token)
-            Flight::halt(401, "Missing authentication header");
-
-        $decoded_token=JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
-        Flight::json(['data'=> $decoded_token->user]);
-    } catch (\Exception $e) {
-        Flight::halt(401, $e->getMessage());
-    }
-
+    Flight::json(['data'=> Flight::get("user")]);
 });

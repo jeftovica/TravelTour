@@ -4,6 +4,7 @@ $(document).ready(function(){
     getTour();
     handleVisibilityRole();
 });
+let isBooked=false;
 getTour=()=>{
     var urlParams = new URLSearchParams(window.location.search);
     let id= urlParams.get('id');
@@ -26,6 +27,20 @@ getTour=()=>{
         $("#tour-description").text(response.description);
         $("#tour-date").text(response.start_date+" - "+response.end_date);
         $("#tour-price").text(`${response.price}BAM`);
+      if(response.isBooked!=undefined){
+        isBooked=response.isBooked;
+        if(response.isBooked==true){
+          $("#reserve-button").text("Cancel Tour");
+          $("#modalLabel").text("Cancel Tour");
+          $("#reserve-question").text("Are you sure you want to cancel tour?");
+          $("#reserve-modal-button").text("Unbook");
+        }else{
+          $("#reserve-button").text("Book Tour");
+          $("#modalLabel").text("Book Tour");
+          $("#reserve-question").text("Are you sure you want to book tour?");
+          $("#reserve-modal-button").text("Book");
+        }
+      }
 
         let toursHtml='';
         let carouselHtml='';
@@ -78,21 +93,41 @@ getTour=()=>{
 reserve=()=>{
   var urlParams = new URLSearchParams(window.location.search);
   let id= urlParams.get('id');
-  $.ajax({
-    url: Constants.API_BASE_URL + `tours/reservation`,
-    type: 'POST',
-    beforeSend: function (xhr) {
-      if (Utils.get_from_localstorage("user")) {
-        xhr.setRequestHeader(
-          "Authentication",
-          Utils.get_from_localstorage("user")
-        );
+  if(isBooked==true){
+    $.ajax({
+      url: Constants.API_BASE_URL + `tours/reservation/${id}`,
+      type: 'DELETE',
+      beforeSend: function (xhr) {
+        if (Utils.get_from_localstorage("user")) {
+          xhr.setRequestHeader(
+            "Authentication",
+            Utils.get_from_localstorage("user")
+          );
+        }
+      },
+      contentType: 'application/json',
+      success: function (result) {
+        location.reload();
       }
-    },
-    data: JSON.stringify({tour_id:id}),
-    contentType: 'application/json',
-    success: function (result) {
-      location.reload();
-    }
-  });
+    });
+  }else{
+    $.ajax({
+      url: Constants.API_BASE_URL + `tours/reservation`,
+      type: 'POST',
+      beforeSend: function (xhr) {
+        if (Utils.get_from_localstorage("user")) {
+          xhr.setRequestHeader(
+            "Authentication",
+            Utils.get_from_localstorage("user")
+          );
+        }
+      },
+      data: JSON.stringify({tour_id:id}),
+      contentType: 'application/json',
+      success: function (result) {
+        location.reload();
+      }
+    });
+  }
+  
 }

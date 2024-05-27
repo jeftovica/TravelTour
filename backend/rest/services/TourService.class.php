@@ -18,6 +18,9 @@ class TourService{
     public function add_reservation($tour_id,$user_id){
         return $this-> tours_dao -> add_reservation($tour_id,$user_id);
     }
+    public function cancel_reservation($tour_id,$user_id){
+        return $this-> tours_dao -> cancel_reservation($tour_id,$user_id);
+    }
     public function delete_tour($id){
         return $this-> tours_dao -> delete_tour($id);
     }

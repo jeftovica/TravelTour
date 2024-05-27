@@ -22,18 +22,6 @@ Flight::set('attraction_service', new AttractionService());
      * )
      */
 Flight::route('GET /attractions', function(){
-
-    try {
-        $token = Flight::request()->getHeader("Authentication");
-        if(!$token)
-            Flight::halt(401, "Missing authentication header");
-
-        JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
-
-    } catch (\Exception $e) {
-        Flight::halt(401, $e->getMessage());
-    }
-
     $attractions = Flight::get('attraction_service')-> get_all();
     Flight::json(['data'=> $attractions]);
 });
@@ -63,18 +51,6 @@ Flight::route('GET /attractions', function(){
  * )
  */
 Flight::route('GET /attractions/one/@attraction_id', function($attraction_id){
-
-    try {
-        $token = Flight::request()->getHeader("Authentication");
-        if(!$token)
-            Flight::halt(401, "Missing authentication header");
-
-        JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
-        
-    } catch (\Exception $e) {
-        Flight::halt(401, $e->getMessage());
-    }
-
     $attraction = Flight::get('attraction_service')-> get_attraction($attraction_id);
     Flight::json(['data'=> $attraction]);
 
@@ -107,17 +83,8 @@ Flight::route('GET /attractions/one/@attraction_id', function($attraction_id){
      */
 Flight::route('POST /attractions/add', function(){
 
-    try {
-        $token = Flight::request()->getHeader("Authentication");
-        if(!$token)
-            Flight::halt(401, "Missing authentication header");
-
-        $decoded_token=JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
-        if($decoded_token->user->role!="admin"){
-            Flight::halt(403, "Permission denied.");
-        }
-    } catch (\Exception $e) {
-        Flight::halt(401, $e->getMessage());
+    if(Flight::get("user")->role!="admin"){
+        Flight::halt(403, "Permission denied.");
     }
 
     $payload=Flight::request()->data->getData();
@@ -172,17 +139,8 @@ Flight::route('POST /attractions/add', function(){
  */
 Flight::route('DELETE /attractions/delete/@attraction_id', function($attraction_id){
 
-    try {
-        $token = Flight::request()->getHeader("Authentication");
-        if(!$token)
-            Flight::halt(401, "Missing authentication header");
-
-        $decoded_token=JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
-        if($decoded_token->user->role!="admin"){
-            Flight::halt(403, "Permission denied.");
-        }
-    } catch (\Exception $e) {
-        Flight::halt(401, $e->getMessage());
+    if(Flight::get("user")->role!="admin"){
+        Flight::halt(403, "Permission denied.");
     }
 
     Flight::get('attraction_service')-> delete_attraction($attraction_id);
@@ -222,17 +180,8 @@ Flight::route('DELETE /attractions/delete/@attraction_id', function($attraction_
 
 Flight::route('POST /attractions/edit', function(){ 
 
-    try {
-        $token = Flight::request()->getHeader("Authentication");
-        if(!$token)
-            Flight::halt(401, "Missing authentication header");
-
-        $decoded_token=JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
-        if($decoded_token->user->role!="admin"){
-            Flight::halt(403, "Permission denied.");
-        }
-    } catch (\Exception $e) {
-        Flight::halt(401, $e->getMessage());
+    if(Flight::get("user")->role!="admin"){
+        Flight::halt(403, "Permission denied.");
     }
 
     $payload=Flight::request()->data->getData();

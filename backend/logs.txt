@@ -1,0 +1,94 @@
+ErrorException: Attempt to read property "role" on null in C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\rest\routes\attraction_routes.php:86
+Stack trace:
+#0 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\rest\routes\attraction_routes.php(86): flight\Engine->handleError()
+#1 [internal function]: {closure}()
+#2 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(354): call_user_func_array()
+#3 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable()
+#4 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Engine.php(544): flight\core\Dispatcher->execute()
+#5 [internal function]: flight\Engine->_start()
+#6 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(376): call_user_func_array()
+#7 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable()
+#8 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(131): flight\core\Dispatcher->execute()
+#9 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(95): flight\core\Dispatcher->runEvent()
+#10 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Engine.php(113): flight\core\Dispatcher->run()
+#11 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Flight.php(119): flight\Engine->__call()
+#12 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\index.php(9): Flight::__callStatic()
+#13 {main}
+ErrorException: Attempt to read property "role" on null in C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\rest\routes\attraction_routes.php:86
+Stack trace:
+#0 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\rest\routes\attraction_routes.php(86): flight\Engine->handleError()
+#1 [internal function]: {closure}()
+#2 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(354): call_user_func_array()
+#3 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable()
+#4 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Engine.php(544): flight\core\Dispatcher->execute()
+#5 [internal function]: flight\Engine->_start()
+#6 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(376): call_user_func_array()
+#7 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable()
+#8 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(131): flight\core\Dispatcher->execute()
+#9 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(95): flight\core\Dispatcher->runEvent()
+#10 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Engine.php(113): flight\core\Dispatcher->run()
+#11 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Flight.php(119): flight\Engine->__call()
+#12 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\index.php(9): Flight::__callStatic()
+#13 {main}
+ErrorException: Attempt to read property "role" on null in C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\rest\routes\attraction_routes.php:86
+Stack trace:
+#0 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\rest\routes\attraction_routes.php(86): flight\Engine->handleError()
+#1 [internal function]: {closure}()
+#2 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(354): call_user_func_array()
+#3 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable()
+#4 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Engine.php(544): flight\core\Dispatcher->execute()
+#5 [internal function]: flight\Engine->_start()
+#6 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(376): call_user_func_array()
+#7 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable()
+#8 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(131): flight\core\Dispatcher->execute()
+#9 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(95): flight\core\Dispatcher->runEvent()
+#10 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Engine.php(113): flight\core\Dispatcher->run()
+#11 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Flight.php(119): flight\Engine->__call()
+#12 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\index.php(9): Flight::__callStatic()
+#13 {main}
+ErrorException: Attempt to read property "role" on null in C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\rest\routes\attraction_routes.php:86
+Stack trace:
+#0 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\rest\routes\attraction_routes.php(86): flight\Engine->handleError()
+#1 [internal function]: {closure}()
+#2 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(354): call_user_func_array()
+#3 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable()
+#4 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Engine.php(544): flight\core\Dispatcher->execute()
+#5 [internal function]: flight\Engine->_start()
+#6 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(376): call_user_func_array()
+#7 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable()
+#8 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(131): flight\core\Dispatcher->execute()
+#9 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(95): flight\core\Dispatcher->runEvent()
+#10 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Engine.php(113): flight\core\Dispatcher->run()
+#11 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Flight.php(119): flight\Engine->__call()
+#12 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\index.php(9): Flight::__callStatic()
+#13 {main}
+Error: Attempt to assign property "isBooked" on null in C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\rest\routes\tour_routes.php:333
+Stack trace:
+#0 [internal function]: {closure}()
+#1 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(354): call_user_func_array()
+#2 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable()
+#3 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Engine.php(544): flight\core\Dispatcher->execute()
+#4 [internal function]: flight\Engine->_start()
+#5 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(376): call_user_func_array()
+#6 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable()
+#7 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(131): flight\core\Dispatcher->execute()
+#8 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(95): flight\core\Dispatcher->runEvent()
+#9 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Engine.php(113): flight\core\Dispatcher->run()
+#10 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Flight.php(119): flight\Engine->__call()
+#11 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\index.php(9): Flight::__callStatic()
+#12 {main}
+Error: Attempt to assign property "isBooked" on array in C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\rest\routes\tour_routes.php:333
+Stack trace:
+#0 [internal function]: {closure}()
+#1 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(354): call_user_func_array()
+#2 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable()
+#3 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Engine.php(544): flight\core\Dispatcher->execute()
+#4 [internal function]: flight\Engine->_start()
+#5 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(376): call_user_func_array()
+#6 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable()
+#7 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(131): flight\core\Dispatcher->execute()
+#8 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\core\Dispatcher.php(95): flight\core\Dispatcher->runEvent()
+#9 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Engine.php(113): flight\core\Dispatcher->run()
+#10 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\vendor\flightphp\core\flight\Flight.php(119): flight\Engine->__call()
+#11 C:\Bitnami\wampstack-8.1.2-0\apache2\htdocs\TravelTour\backend\index.php(9): Flight::__callStatic()
+#12 {main}

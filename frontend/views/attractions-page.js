@@ -4,7 +4,7 @@ $(document).ready(function () {
   $("#add-attraction-form").get(0).reset();
 });
 let deletionIdAttraction = -1;
-let editId=-1;
+let editIdAttraction=-1;
 let isEditAttraction=false;
 getAttractions = () => {
   $.ajax({url: Constants.API_BASE_URL + 'attractions',
@@ -72,7 +72,7 @@ setEditData = (id,name,description) => {
   isEditAttraction=true;
   document.querySelector("#name").value=name;
   document.querySelector('#description').value=description;
-  editId=id;
+  editIdAttraction=id;
 }
 addAttraction = () => {
   let name = document.querySelector("#name").value;
@@ -132,7 +132,7 @@ editAttraction = () => {
   let image = document.querySelector("#formFile").files[0];
   let formData= new FormData();
   formData.append("name",name);
-  formData.append("id",editId);
+  formData.append("id",editIdAttraction);
   formData.append("description",description);
   if (image)
     formData.append("image",image);

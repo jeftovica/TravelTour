@@ -68,6 +68,11 @@ class TourDao extends BaseDao{
         $statement= $this->connection->prepare($query);
         $statement->execute([$tour_id,$user_id]);
     }
+    public function cancel_reservation($tour_id,$user_id){
+        $query = "DELETE from travel_tour.reservations WHERE id_tour=? AND id_user=?";
+        $statement= $this->connection->prepare($query);
+        $statement->execute([$tour_id,$user_id]);
+    }
     public function delete_tour($id){
         $query = "DELETE FROM travel_tour.tours_attractions WHERE tour_id=?";
         $statement= $this->connection->prepare($query);
