@@ -11,7 +11,7 @@ login = () => {
         password: document.querySelector("#password-login").value
     }
     
-    $.ajax({url: Constants.API_BASE_URL + 'users',
+    $.ajax({url: Constants.get_api_base_url() + 'users',
      data: JSON.stringify(credentials),
      contentType: "application/json",
      type: "POST",

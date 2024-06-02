@@ -68,7 +68,7 @@ handleChangePage = () => {
 
 logout = () => {
   $.ajax({
-    url: Constants.API_BASE_URL + 'logout',
+    url: Constants.get_api_base_url() + 'logout',
     type: "POST",
     beforeSend: function (xhr) {
       if (Utils.get_from_localstorage("user")) {
@@ -87,7 +87,7 @@ logout = () => {
 }
 setUsersName = () => {
   $.ajax({
-    url: Constants.API_BASE_URL + 'whoAmI',
+    url: Constants.get_api_base_url() + 'whoAmI',
     type: "GET",
     beforeSend: function (xhr) {
       if (Utils.get_from_localstorage("user")) {
@@ -109,7 +109,7 @@ setUsersName = () => {
 handleVisibilityRole = () => {
 
   $.ajax({
-    url: Constants.API_BASE_URL + 'whoAmI',
+    url: Constants.get_api_base_url() + 'whoAmI',
     type: "GET",
     beforeSend: function (xhr) {
       if (Utils.get_from_localstorage("user")) {

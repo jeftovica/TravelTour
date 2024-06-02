@@ -5,7 +5,7 @@ $(document).ready(function(){
     handleVisibilityRole();
 });
 getTours=()=>{
-    $.ajax({url: Constants.API_BASE_URL + 'tours/popular',
+    $.ajax({url: Constants.get_api_base_url() + 'tours/popular',
     type: "GET",
     beforeSend: function (xhr) {
       if (Utils.get_from_localstorage("user")) {

@@ -4,10 +4,10 @@ $(document).ready(function () {
   $("#add-attraction-form").get(0).reset();
 });
 let deletionIdAttraction = -1;
-let editId=-1;
+let editIdAttraction=-1;
 let isEditAttraction=false;
 getAttractions = () => {
-  $.ajax({url: Constants.API_BASE_URL + 'attractions',
+  $.ajax({url: Constants.get_api_base_url() + 'attractions',
   type: "GET",
   beforeSend: function (xhr) {
     if (Utils.get_from_localstorage("user")) {
@@ -72,7 +72,7 @@ setEditData = (id,name,description) => {
   isEditAttraction=true;
   document.querySelector("#name").value=name;
   document.querySelector('#description').value=description;
-  editId=id;
+  editIdAttraction=id;
 }
 addAttraction = () => {
   let name = document.querySelector("#name").value;
@@ -84,7 +84,7 @@ addAttraction = () => {
   formData.append("description",description);
   formData.append("image",image);
   $.ajax({
-    url: Constants.API_BASE_URL + 'attractions/add', data: formData,
+    url: Constants.get_api_base_url() + 'attractions/add', data: formData,
     cache: false,
     contentType: false,
     processData: false,
@@ -106,7 +106,7 @@ addAttraction = () => {
 }
 deleteAttraction = () => {
   $.ajax({
-    url: Constants.API_BASE_URL + `attractions/delete/${deletionIdAttraction}`,
+    url: Constants.get_api_base_url() + `attractions/delete/${deletionIdAttraction}`,
     type: 'DELETE',
     beforeSend: function (xhr) {
       if (Utils.get_from_localstorage("user")) {
@@ -132,12 +132,12 @@ editAttraction = () => {
   let image = document.querySelector("#formFile").files[0];
   let formData= new FormData();
   formData.append("name",name);
-  formData.append("id",editId);
+  formData.append("id",editIdAttraction);
   formData.append("description",description);
   if (image)
     formData.append("image",image);
   $.ajax({
-    url: Constants.API_BASE_URL + `attractions/edit`,
+    url: Constants.get_api_base_url() + `attractions/edit`,
     type: 'POST',
     beforeSend: function (xhr) {
       if (Utils.get_from_localstorage("user")) {

@@ -17,7 +17,7 @@ let isEditTour = false;
 let allAttractons = []
 getTours = () => {
   $.ajax({
-    url: Constants.API_BASE_URL + 'tours',
+    url: Constants.get_api_base_url() + 'tours',
     type: "GET",
     beforeSend: function (xhr) {
       if (Utils.get_from_localstorage("user")) {
@@ -30,6 +30,7 @@ getTours = () => {
     success: (response) => {
       let searchText = document.querySelector('#search-tour').value;
       if (searchText != "") {
+        console.log("AAAA")
         response.data = response.data.filter(function (tour) {
           return tour.name.toLowerCase().includes(searchText.toLowerCase());
         });
@@ -108,7 +109,7 @@ editTour = () => {
     formData.append("image", image);
   }
   $.ajax({
-    url: Constants.API_BASE_URL + `tours/edit`,
+    url: Constants.get_api_base_url() + `tours/edit`,
     data: formData,
     cache: false,
     contentType: false,
@@ -131,7 +132,7 @@ editTour = () => {
 setEditData = (id) => {
   isEditTour = true;
   $.ajax({
-    url: Constants.API_BASE_URL + `tours/one/${id}`,
+    url: Constants.get_api_base_url() + `tours/one/${id}`,
     type: "GET",
     beforeSend: function (xhr) {
       if (Utils.get_from_localstorage("user")) {
@@ -162,7 +163,7 @@ setEditData = (id) => {
 
 getAttractions = () => {
   $.ajax({
-    url: Constants.API_BASE_URL + 'attractions',
+    url: Constants.get_api_base_url() + 'attractions',
     type: "GET",
     beforeSend: function (xhr) {
       if (Utils.get_from_localstorage("user")) {
@@ -205,7 +206,7 @@ addTour = () => {
   formData.append("attractions", JSON.stringify(attractions));
 
   $.ajax({
-    url: Constants.API_BASE_URL + 'tours/add',
+    url: Constants.get_api_base_url() + 'tours/add',
     data: formData,
     cache: false,
     contentType: false,
@@ -228,7 +229,7 @@ addTour = () => {
 }
 deleteTour = () => {
   $.ajax({
-    url: Constants.API_BASE_URL + `tours/delete/${deletionId}`,
+    url: Constants.get_api_base_url() + `tours/delete/${deletionId}`,
     type: 'DELETE',
     beforeSend: function (xhr) {
       if (Utils.get_from_localstorage("user")) {
