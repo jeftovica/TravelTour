@@ -9,7 +9,7 @@ getTour=()=>{
     var urlParams = new URLSearchParams(window.location.search);
     let id= urlParams.get('id');
 
-    $.ajax({url: Constants.API_BASE_URL + `tours/one/${id}`,
+    $.ajax({url: Constants.get_api_base_url() + `tours/one/${id}`,
     type: "GET",
     beforeSend: function (xhr) {
       if (Utils.get_from_localstorage("user")) {
@@ -95,7 +95,7 @@ reserve=()=>{
   let id= urlParams.get('id');
   if(isBooked==true){
     $.ajax({
-      url: Constants.API_BASE_URL + `tours/reservation/${id}`,
+      url: Constants.get_api_base_url() + `tours/reservation/${id}`,
       type: 'DELETE',
       beforeSend: function (xhr) {
         if (Utils.get_from_localstorage("user")) {
@@ -112,7 +112,7 @@ reserve=()=>{
     });
   }else{
     $.ajax({
-      url: Constants.API_BASE_URL + `tours/reservation`,
+      url: Constants.get_api_base_url() + `tours/reservation`,
       type: 'POST',
       beforeSend: function (xhr) {
         if (Utils.get_from_localstorage("user")) {

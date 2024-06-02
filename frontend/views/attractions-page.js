@@ -7,7 +7,7 @@ let deletionIdAttraction = -1;
 let editIdAttraction=-1;
 let isEditAttraction=false;
 getAttractions = () => {
-  $.ajax({url: Constants.API_BASE_URL + 'attractions',
+  $.ajax({url: Constants.get_api_base_url() + 'attractions',
   type: "GET",
   beforeSend: function (xhr) {
     if (Utils.get_from_localstorage("user")) {
@@ -84,7 +84,7 @@ addAttraction = () => {
   formData.append("description",description);
   formData.append("image",image);
   $.ajax({
-    url: Constants.API_BASE_URL + 'attractions/add', data: formData,
+    url: Constants.get_api_base_url() + 'attractions/add', data: formData,
     cache: false,
     contentType: false,
     processData: false,
@@ -106,7 +106,7 @@ addAttraction = () => {
 }
 deleteAttraction = () => {
   $.ajax({
-    url: Constants.API_BASE_URL + `attractions/delete/${deletionIdAttraction}`,
+    url: Constants.get_api_base_url() + `attractions/delete/${deletionIdAttraction}`,
     type: 'DELETE',
     beforeSend: function (xhr) {
       if (Utils.get_from_localstorage("user")) {
@@ -137,7 +137,7 @@ editAttraction = () => {
   if (image)
     formData.append("image",image);
   $.ajax({
-    url: Constants.API_BASE_URL + `attractions/edit`,
+    url: Constants.get_api_base_url() + `attractions/edit`,
     type: 'POST',
     beforeSend: function (xhr) {
       if (Utils.get_from_localstorage("user")) {

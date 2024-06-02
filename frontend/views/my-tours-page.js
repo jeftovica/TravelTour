@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 getTours = () => {
 
-  $.ajax({url: Constants.API_BASE_URL + `tours/my`,
+  $.ajax({url: Constants.get_api_base_url() + `tours/my`,
   type: "GET",
   beforeSend: function (xhr) {
     if (Utils.get_from_localstorage("user")) {

@@ -98,7 +98,7 @@ Flight::route('DELETE /tours/reservation/@tour_id', function($tour_id){
      *              @OA\Property(property="startDate", type="string", example="2024-04-04", description="Tour start date"),
      *              @OA\Property(property="endDate", type="string", example="2024-05-04", description="Tour end date"),
      *              @OA\Property(property="price", type="string", example="123", description="Price of tour"),
-     *              @OA\Property(property="attractions", type="string", example="", description="Tour Attraction IDs")
+     *              @OA\Property(property="attractions", type="string", example="[2,6]", description="Tour Attraction IDs")
      *              
      *          )
      *      )

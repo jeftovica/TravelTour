@@ -47,7 +47,7 @@ Flight::route('POST /users', function(){
 
         $token = JWT::encode(
             $jwt_payload,
-            JWT_SECRET,
+            Config::JWT_SECRET(),
             'HS256'
         );
 

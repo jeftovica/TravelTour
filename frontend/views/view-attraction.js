@@ -7,7 +7,7 @@ getAttraction=()=>{
     var urlParams = new URLSearchParams(window.location.search);
     let id= urlParams.get('id');
 
-    $.ajax({url: Constants.API_BASE_URL + `attractions/one/${id}`,
+    $.ajax({url: Constants.get_api_base_url() + `attractions/one/${id}`,
     type: "GET",
     beforeSend: function (xhr) {
         if (Utils.get_from_localstorage("user")) {
